@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  display: grid;
+  grid-template-columns: 80% 20%;
+
+    background: linear-gradient(22deg, #e70f5e, #b35ac3, #148ae3);
+    background-size: 600% 600%;
+
+    -webkit-animation: bg 30s ease infinite;
+    -moz-animation: bg 30s ease infinite;
+    animation: bg 30s ease infinite;
+}
+
+@-webkit-keyframes bg {
+  0%{background-position:0% 94%}
+  50%{background-position:100% 7%}
+  100%{background-position:0% 94%}
+}
+@-moz-keyframes bg {
+  0%{background-position:0% 94%}
+  50%{background-position:100% 7%}
+  100%{background-position:0% 94%}
+}
+@-o-keyframes bg {
+  0%{background-position:0% 94%}
+  50%{background-position:100% 7%}
+  100%{background-position:0% 94%}
+}
+@keyframes bg {
+  0%{background-position:0% 94%}
+  50%{background-position:100% 7%}
+  100%{background-position:0% 94%}
+}
