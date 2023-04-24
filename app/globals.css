@@ -22,17 +22,17 @@ body {
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  )
+  rgb(var(--background-start-rgb));
   display: grid;
-  grid-template-columns: 80% 20%;
+  grid-template-columns: 85% 15%;
+  background: #200A4C;
+  /* background: linear-gradient(22deg, #e70f5e, #b35ac3, #148ae3);
+  background-size: 600% 600%;
 
-    background: linear-gradient(22deg, #e70f5e, #b35ac3, #148ae3);
-    background-size: 600% 600%;
-
-    -webkit-animation: bg 30s ease infinite;
-    -moz-animation: bg 30s ease infinite;
-    animation: bg 30s ease infinite;
+  -webkit-animation: bg 30s ease infinite;
+  -moz-animation: bg 30s ease infinite;
+  animation: bg 30s ease infinite; */
 }
 
 @-webkit-keyframes bg {
@@ -81,5 +81,28 @@ body {
 
   .scrollbar::-webkit-scrollbar-thumb:hover {
     background: #c0a0b9;
+  }
+
+  @variants dark {
+    .scrollbar::-webkit-scrollbar {
+      width: 9px;
+      height: 9px;
+    }
+
+    .scrollbar::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.5);
+      border-radius: none;
+    }
+
+    .scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.5);
+      border-radius: none;
+      border: none;
+      box-shadow: none;
+    }
+
+    .scrollbar::-webkit-scrollbar-thumb:hover {
+      background: black;
+    }
   }
 }
