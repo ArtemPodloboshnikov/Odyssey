@@ -56,6 +56,13 @@ body {
   100%{background-position:0% 94%}
 }
 
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
     width: 12px;
