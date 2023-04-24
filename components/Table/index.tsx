@@ -6,7 +6,6 @@ interface TableProps {
 const Table: React.FC<TableProps> = ({head, body}) => {
     const timeCheck = (index: number, text: string) => {
         const textSeparate = text.split("\n").map(t => t.split(" "));
-        console.log(textSeparate)
         return index === 2 && (textSeparate[0][1] !== undefined && textSeparate[0][2] === undefined)
     }
 
