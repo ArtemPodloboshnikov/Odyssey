@@ -1,0 +1,153 @@
+{
+    "coctails": [
+        {
+            "title": "Отвёртка",
+            "ingredients": "Апельсиновый сок + водка",
+            "price": 550,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "Виски-кола",
+            "ingredients": "Виски и кола",
+            "price": 550,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "Джин-тоник",
+            "ingredients": "Джин с тоником",
+            "price": 650,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "Ром-энергетик",
+            "ingredients": "Ром с энергетиком",
+            "price": 850,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "Маргарита",
+            "ingredients": "Текила + трипл-сек + лимон",
+            "price": 850,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "Текила санрайз",
+            "ingredients": "Текила + апельсиновый сок + гренадин",
+            "price": 900,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "Чёрный русский",
+            "ingredients": "Водка + калуа",
+            "price": 700,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "Белый русский",
+            "ingredients": "Водка + калуа + сливки",
+            "price": 800,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "Унесённые ветром",
+            "ingredients": "Калуа + трипл-сек + бейлис + молоко",
+            "price": 900,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "Кубалибра",
+            "ingredients": "Ром + кола + сироп",
+            "price": 900,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "Секс на пляже",
+            "ingredients": "Водка + ап.сок + перс.сок + ликёр",
+            "price": 1300,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "Голубая лагуна",
+            "ingredients": "Водка + спрайт + лимон + сироп",
+            "price": 1400,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "Белая леди",
+            "ingredients": "Джин + лимон + трипл-сек",
+            "price": 1500,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "Лонг айленд",
+            "ingredients": "5 видов алк. + кола + лимон",
+            "price": 1500,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "Мечта стриптизёрши",
+            "ingredients": "Малибу + перс.сок + молоко + гренадин",
+            "price": 1500,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "Камикадзе",
+            "ingredients": "Водка + сок + текила + секретный ингредиент",
+            "price": 1500,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "Odyssey",
+            "ingredients": "Авторский коктейль",
+            "price": 2500,
+            "imagePath": "",
+            "alt": ""
+        }
+    ],
+    "shots": [
+        {
+            "title": "Б-52",
+            "ingredients": "Калуа + бейлис + трипл-сек",
+            "price": 800,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "Odyssey",
+            "ingredients": "Калуа + бейлис + абсент",
+            "price": 900,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "«The end» set",
+            "ingredients": "Калуа + бейлис + абсент",
+            "price": 1800,
+            "imagePath": "",
+            "alt": ""
+        },
+        {
+            "title": "«Love is» set",
+            "ingredients": "Калуа + бейлис + абсент",
+            "price": 2000,
+            "imagePath": "",
+            "alt": ""
+        }
+    ]
+}
