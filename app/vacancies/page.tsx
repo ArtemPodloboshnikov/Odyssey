@@ -7,6 +7,7 @@ import Textarea from "@/components/Textarea";
 import { ABOUT_ME_PLACEHOLDER, DEFAULT_IMAGE, PHONE_PLACEHOLDER, RESUME_LINK_PLACEHOLDER, SEND_BTN_TEXT, USER_NAME_PLACEHOLDER } from "@/constants/placeholders";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
+import { ImageType } from "@/typings";
 
 export default function Vacancies() {
     enum InputsName {
@@ -22,10 +23,6 @@ export default function Vacancies() {
         [InputsName.DESCRIPTION]?: string,
 
     }
-    type ImageType = {
-        imagePath: string,
-        alt: string
-    };
     type VacanciesConfig = {
         [profession: string]: {
             title: string,

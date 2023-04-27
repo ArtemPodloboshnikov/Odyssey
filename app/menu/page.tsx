@@ -2,62 +2,50 @@
 
 import { Suspense } from "react";
 import Loading from "./loading";
-import Button, { ButtonStyle } from "@/components/Button";
-import Input, { InputIcons } from "@/components/Input";
-import Image from 'next/image'
-import Textarea from "@/components/Textarea";
-import { ABOUT_ME_PLACEHOLDER, DEFAULT_IMAGE, PHONE_PLACEHOLDER, RESUME_LINK_PLACEHOLDER, SEND_BTN_TEXT, USER_NAME_PLACEHOLDER } from "@/constants/placeholders";
-import { SubmitHandler, useForm } from "react-hook-form";
+import Button from "@/components/Button";
 import { useEffect, useState } from "react";
-import { ImageType } from "@/typings";
+import { MenuCardType } from "@/typings";
+import DrinkCard from "@/components/MenuCard";
 
 export default function Menu() {
 
-    type CoctailsType = {
-        title: string,
-        ingredients: string,
-        price: number
-    } & ImageType;
-
     type MenuConfig = {
-        coctails: CoctailsType[],
-        shots: CoctailsType[]
-    };
-
-    type Drinks = keyof MenuConfig;
-
-    const titlesDrinks: {[drink: string]: string} = {
-        coctails: "Коктейли",
-        shots: "Шоты"
+        [key: string]: MenuCardType[]
     };
 
     const [data, setData] = useState<MenuConfig|null>(null);
-    const dataKeys = (data !== null ? Object.keys(data as Object) : []) as Drinks[];
-    const [drink, setDrink] = useState<Drinks>("coctails");
+    const titlesDrinks = (data !== null ? Object.keys(data as Object) : []);
+    const [section, setSection] = useState<string>("");
     useEffect(()=>{
         async function getData() {
             const response = await fetch("http://localhost:3000/api/menu", {cache: "no-store"});
             const json = await response.json();
             setData(json);
         }
-
-        getData()
+        if (data === null)
+            getData()
     })
     return (
         <Suspense fallback={<Loading/>}>
             <div className="overflow-hidden col-start-1 col-end-1 p-10 flex flex-col gap-y-5">
                 { data !== null ?
-                dataKeys.map(drinks => {
+                titlesDrinks.map(drinks => {
                     const changeDrink = () => {
-                        setDrink(drinks)
+                        setSection(drinks)
                     }
-                    return <Button key={drinks} text={titlesDrinks[drinks]} click={changeDrink} />
+                    return <Button key={drinks} text={drinks} click={changeDrink} />
                 }) : null}
             </div>
-            <div className="overflow-hidden col-start-2 col-end-7 p-10 flex flex-row gap-x-5">
-                {data !== null ?
-                    data[drink].map(drinks => {
-                        return <></>
+            <div className="overflow-y-auto scrollbar col-start-2 col-end-7 p-10 grid grid-cols-5 gap-5 h-fit">
+                {data !== null && section !== "" ?
+                    data[section].map(thing => {
+                        return <DrinkCard
+                                key={thing.title}
+                                title={thing.title}
+                                additional={thing.additional}
+                                imagePath={thing.imagePath}
+                                price={thing.price}
+                                />
                     })
                 : null}
             </div>

@@ -1,153 +1,200 @@
 {
-    "coctails": [
+    "Коктейли": [
         {
             "title": "Отвёртка",
-            "ingredients": "Апельсиновый сок + водка",
+            "additional": "Апельсиновый сок, водка",
             "price": 550,
-            "imagePath": "",
-            "alt": ""
+            "imagePath": "/images/menu/screwdriver.avif"
         },
         {
             "title": "Виски-кола",
-            "ingredients": "Виски и кола",
+            "additional": "Виски, кола",
             "price": 550,
-            "imagePath": "",
-            "alt": ""
+            "imagePath": "/images/menu/whiskey_cola.avif"
         },
         {
             "title": "Джин-тоник",
-            "ingredients": "Джин с тоником",
-            "price": 650,
-            "imagePath": "",
-            "alt": ""
-        },
-        {
-            "title": "Ром-энергетик",
-            "ingredients": "Ром с энергетиком",
-            "price": 850,
-            "imagePath": "",
-            "alt": ""
+            "additional": "Джин, тоник",
+            "price": 550,
+            "imagePath": "/images/menu/gin_tonic.avif"
         },
         {
             "title": "Маргарита",
-            "ingredients": "Текила + трипл-сек + лимон",
+            "additional": "Текила, трипл-сек, лимон",
             "price": 850,
-            "imagePath": "",
-            "alt": ""
+            "imagePath": "/images/menu/margarita.avif"
         },
         {
             "title": "Текила санрайз",
-            "ingredients": "Текила + апельсиновый сок + гренадин",
-            "price": 900,
-            "imagePath": "",
-            "alt": ""
+            "additional": "Текила, апельсиновый сок, гренадин",
+            "price": 800,
+            "imagePath": "/images/menu/tequila_sunrise.avif"
         },
         {
             "title": "Чёрный русский",
-            "ingredients": "Водка + калуа",
+            "additional": "Водка, калуа",
             "price": 700,
-            "imagePath": "",
-            "alt": ""
+            "imagePath": "/images/menu/black_russian.avif"
         },
         {
             "title": "Белый русский",
-            "ingredients": "Водка + калуа + сливки",
-            "price": 800,
-            "imagePath": "",
-            "alt": ""
+            "additional": "Водка, калуа, сливки",
+            "price": 700,
+            "imagePath": "/images/menu/white_russian.avif"
         },
         {
-            "title": "Унесённые ветром",
-            "ingredients": "Калуа + трипл-сек + бейлис + молоко",
-            "price": 900,
-            "imagePath": "",
-            "alt": ""
-        },
-        {
-            "title": "Кубалибра",
-            "ingredients": "Ром + кола + сироп",
-            "price": 900,
-            "imagePath": "",
-            "alt": ""
+            "title": "Б-52",
+            "additional": "Бейлис, калуа, куантро",
+            "price": 700,
+            "imagePath": "/images/menu/b52.avif"
         },
         {
             "title": "Секс на пляже",
-            "ingredients": "Водка + ап.сок + перс.сок + ликёр",
+            "additional": "Водка, апельсиновый сок, персиковый сок, ликёр",
             "price": 1300,
-            "imagePath": "",
-            "alt": ""
-        },
-        {
-            "title": "Голубая лагуна",
-            "ingredients": "Водка + спрайт + лимон + сироп",
-            "price": 1400,
-            "imagePath": "",
-            "alt": ""
-        },
-        {
-            "title": "Белая леди",
-            "ingredients": "Джин + лимон + трипл-сек",
-            "price": 1500,
-            "imagePath": "",
-            "alt": ""
+            "imagePath": "/images/menu/sex_beach.avif"
         },
         {
             "title": "Лонг айленд",
-            "ingredients": "5 видов алк. + кола + лимон",
+            "additional": "Ром, джин, трипл-сек, водка, куантро, лимонный сок, кола",
             "price": 1500,
-            "imagePath": "",
-            "alt": ""
+            "imagePath": "/images/menu/long_island.avif"
         },
         {
-            "title": "Мечта стриптизёрши",
-            "ingredients": "Малибу + перс.сок + молоко + гренадин",
-            "price": 1500,
-            "imagePath": "",
-            "alt": ""
-        },
-        {
-            "title": "Камикадзе",
-            "ingredients": "Водка + сок + текила + секретный ингредиент",
-            "price": 1500,
-            "imagePath": "",
-            "alt": ""
-        },
-        {
-            "title": "Odyssey",
-            "ingredients": "Авторский коктейль",
-            "price": 2500,
-            "imagePath": "",
-            "alt": ""
+            "title": "Одиссей",
+            "additional": "Авторский коктейль",
+            "price": 2000,
+            "imagePath": ""
         }
     ],
-    "shots": [
+    "Шампанские и игристые вина": [
         {
-            "title": "Б-52",
-            "ingredients": "Калуа + бейлис + трипл-сек",
-            "price": 800,
-            "imagePath": "",
-            "alt": ""
+            "title": "Шато тамань брют",
+            "additional": "Россия, 750 мл",
+            "price": 4650,
+            "imagePath": "/images/menu/chateau_taman_brut.avif"
         },
         {
-            "title": "Odyssey",
-            "ingredients": "Калуа + бейлис + абсент",
-            "price": 900,
-            "imagePath": "",
-            "alt": ""
+            "title": "Мартини брют",
+            "additional": "Италия, 750 мл",
+            "price": 5360,
+            "imagePath": "/images/menu/martini_brut.avif"
         },
         {
-            "title": "«The end» set",
-            "ingredients": "Калуа + бейлис + абсент",
-            "price": 1800,
-            "imagePath": "",
-            "alt": ""
+            "title": "Пале де версаль",
+            "additional": "Франция, 750 мл",
+            "price": 6240,
+            "imagePath": "/images/menu/palais_de_versailles.avif"
         },
         {
-            "title": "«Love is» set",
-            "ingredients": "Калуа + бейлис + абсент",
+            "title": "Моет шандон нектар империаль",
+            "additional": "Франция, 750 мл",
+            "price": 20480,
+            "imagePath": "/images/menu/washes_shandon_nectar_imperial.avif"
+        },
+        {
+            "title": "Моет шандон брют империаль",
+            "additional": "Франция, 750 мл",
+            "price": 16760,
+            "imagePath": "/images/menu/washes_shandon_brut_imperial.avif"
+        }
+    ],
+    "Красные вина": [
+        {
+            "title": "Красное сладкое",
+            "additional": "750 мл",
+            "price": 5240,
+            "imagePath": ""
+        },
+        {
+            "title": "Красное полусладкое",
+            "additional": "750 мл",
+            "price": 6190,
+            "imagePath": ""
+        },
+        {
+            "title": "Красное сухое",
+            "additional": "750 мл",
+            "price": 7230,
+            "imagePath": ""
+        }
+    ],
+    "Белые вина": [
+        {
+            "title": "Белое сладкое",
+            "additional": "750 мл",
+            "price": 6140,
+            "imagePath": ""
+        },
+        {
+            "title": "Белое полусладкое",
+            "additional": "750 мл",
+            "price": 5120,
+            "imagePath": ""
+        },
+        {
+            "title": "Белое сухое",
+            "additional": "750 мл",
+            "price": 7050,
+            "imagePath": ""
+        }
+    ],
+    "Холодные закуски": [
+        {
+            "title": "Ассорти сезонных фруктов",
+            "additional": "",
+            "price": 1500,
+            "imagePath": "/images/menu/assorted_seasonal_fruits.avif"
+        },
+        {
+            "title": "Сырное плато",
+            "additional": "",
             "price": 2000,
-            "imagePath": "",
-            "alt": ""
+            "imagePath": "/images/menu/cheese_plateau.avif"
+        },
+        {
+            "title": "Мясное плато",
+            "additional": "",
+            "price": 2500,
+            "imagePath": "/images/menu/meat_plateau.avif"
+        },
+        {
+            "title": "Рыбное плато",
+            "additional": "",
+            "price": 3000,
+            "imagePath": "/images/menu/fish_plateau.avif"
+        },
+        {
+            "title": "Дисерт к шампанскому",
+            "additional": "",
+            "price": 1000,
+            "imagePath": ""
+        }
+    ],
+    "Кальяны": [
+        {
+            "title": "Кальян на воде",
+            "additional": "",
+            "price": 2000,
+            "imagePath": "/images/menu/hookah_water.avif"
+        },
+        {
+            "title": "Кальян на молоке",
+            "additional": "",
+            "price": 2500,
+            "imagePath": "/images/menu/hookah_milk.avif"
+        },
+        {
+            "title": "Кальян на вине",
+            "additional": "",
+            "price": 3000,
+            "imagePath": "/images/menu/hookah_wine.avif"
+        },
+        {
+            "title": "Кальян на абсенте",
+            "additional": "",
+            "price": 4000,
+            "imagePath": "/images/menu/hookah_absinthe.avif"
         }
     ]
 }
