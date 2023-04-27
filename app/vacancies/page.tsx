@@ -35,16 +35,16 @@ export default function Vacancies() {
     };
     const {register, handleSubmit} = useForm<FormInputs>();
     const onSubmit: SubmitHandler<FormInputs> = data => console.log(data);
-    const [data, setData] = useState<VacanciesConfig>({});
-    const [image, setImage] = useState<ImageType>();
+    const [data, setData] = useState<VacanciesConfig|null>(null);
+    const [image, setImage] = useState<ImageType|null>(null);
     useEffect(()=>{
         async function getData() {
             const response = await fetch("http://localhost:3000/api/vacancies", {cache: "no-store"});
             const json = await response.json();
             setData(json);
         }
-
-        getData()
+        if (data === null)
+            getData();
     })
     return (
         <>
@@ -52,7 +52,8 @@ export default function Vacancies() {
                 <Image src={image?.imagePath||DEFAULT_IMAGE.path} alt={image?.alt||DEFAULT_IMAGE.alt} fill />
             </div>
             <div className="overflow-hidden col-start-3 col-end-5 p-10">
-                {Object.keys(data).map(profession => {
+                {data !== null ?
+                Object.keys(data).map(profession => {
                     const id = `id_${profession}`;
                     const changeImage = (e: any) => {
                         document.querySelectorAll("details").forEach(detail=>{if (detail.id !== id) detail.open = false})
@@ -77,7 +78,7 @@ export default function Vacancies() {
                         </details>
                         </div>
                     )
-                })}
+                }) : null}
             </div>
             <form className="col-start-5 col-end-7 my-56 flex flex-col gap-y-5" onSubmit={handleSubmit(onSubmit)}>
                 <Input placeholder={USER_NAME_PLACEHOLDER} icon={InputIcons.USER} register={register(InputsName.NAME, {required: true})}/>

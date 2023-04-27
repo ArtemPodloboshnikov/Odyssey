@@ -3,7 +3,7 @@ export const CLUB_LINK = {
     text: "клуб"
 };
 export const GIRLS_LINK = {
-    href: "/goddesses",
+    href: "/girls",
     text: "богини"
 };
 export const SERVICES_LINK = {

@@ -11,8 +11,8 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({text, click, style=ButtonStyle.SIMPLE, type="button"}) => {
-    const ctaStyle = "rounded-xl bg-gradient-to-br from-[#FF5555] to-[#6025F5] px-5 py-3 text-base font-medium text-white hover:shadow-lg hover:shadow-pink-500/50 shadow-[#6025F5]/50 hover:from-[#6025F5] hover:to-[#FF5555] transition-all duration-500 shadow-lg outline-none border-0";
-    const simpleStyle = "rounded-xl bg-gradient-to-br from-[#2B1867] to-[#2B1867] px-5 py-3 text-base font-medium text-white hover:shadow-lg hover:shadow-[#6025F5]/50 hover:from-[#281661] hover:to-[#281661] transition-all duration-500 outline-none border-0";
+    const ctaStyle = "rounded-xl bg-gradient-to-br from-[#ED5156] to-[#DA2263] px-5 py-3 text-base font-medium text-white hover:shadow-lg hover:shadow-[#ED5156]/50 shadow-[#DA2263]/50 hover:from-[#DA2263] hover:to-[#ED5156] transition-all duration-500 shadow-lg outline-none border-0";
+    const simpleStyle = "rounded-xl bg-gradient-to-br from-[#ff073a] to-[#ff073a] px-5 py-3 text-base font-medium text-white hover:shadow-lg hover:shadow-[#c60c31]/50 hover:from-[#c60c31] hover:to-[#c60c31] transition-all duration-500 outline-none border-0";
     return (
         <button
         type={type}
