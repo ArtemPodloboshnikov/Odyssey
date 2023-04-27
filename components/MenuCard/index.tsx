@@ -1,7 +1,6 @@
 import { MenuCardType } from "@/typings";
 
 const MenuCard: React.FC<MenuCardType> = ({imagePath, title, additional, price}) => {
-    console.log(imagePath);
     return (
         <div
         style={{backgroundImage: `url(${imagePath})`}}
