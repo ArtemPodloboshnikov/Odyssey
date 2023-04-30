@@ -114,6 +114,7 @@ radial-gradient(at 10% 27%, hsla(60,76%,60%,1) 0px, transparent 50%);
 
 details > summary {
   list-style: none;
+  cursor: pointer;
 }
 details > summary::-webkit-details-marker {
   display: none;

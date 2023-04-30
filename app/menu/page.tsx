@@ -1,54 +1,34 @@
-"use client"
-
 import { Suspense } from "react";
 import Loading from "./loading";
-import Button from "@/components/Button";
-import { useEffect, useState } from "react";
-import { MenuCardType } from "@/typings";
 import DrinkCard from "@/components/MenuCard";
+import { getMenu } from "@/lib/getMenu";
 
-export default function Menu() {
-
-    type MenuConfig = {
-        [key: string]: MenuCardType[]
-    };
-
-    const [data, setData] = useState<MenuConfig|null>(null);
-    const titlesDrinks = (data !== null ? Object.keys(data as Object) : []);
-    const [section, setSection] = useState<string>("");
-    useEffect(()=>{
-        async function getData() {
-            const response = await fetch("http://localhost:3000/api/menu", {cache: "no-store"});
-            const json = await response.json();
-            setData(json);
-        }
-        if (data === null)
-            getData()
-    })
+export default async function Menu() {
+    const menu = await getMenu();
     return (
         <Suspense fallback={<Loading/>}>
-            <div className="overflow-hidden col-start-1 col-end-1 p-10 flex flex-col gap-y-5">
-                { data !== null ?
-                titlesDrinks.map(drinks => {
-                    const changeDrink = () => {
-                        setSection(drinks)
-                    }
-                    return <Button key={drinks} text={drinks} click={changeDrink} />
-                }) : null}
-            </div>
-            <div className="overflow-y-auto scrollbar col-start-2 col-end-7 p-10 grid grid-cols-5 gap-5 h-fit">
-                {data !== null && section !== "" ?
-                    data[section].map(thing => {
-                        return <DrinkCard
-                                key={thing.title}
-                                title={thing.title}
-                                additional={thing.additional}
-                                imagePath={thing.imagePath}
-                                price={thing.price}
-                                />
-                    })
-                : null}
-            </div>
+            <div className="col-start-1 col-end-7 flex flex-col p-10 h-full overflow-y-auto scrollbar">
+                {Object.keys(menu)?.map(title => {
+                    return (
+                        <details key={title}>
+                            <summary className="font-bold">{title}</summary>
+                            <div className="overflow-y-auto scrollbar p-10 grid grid-cols-5 gap-5 h-fit">
+                                {menu[title]?.map(thing => {
+                                        return <DrinkCard
+                                                key={thing.title}
+                                                title={thing.title}
+                                                additional={thing.additional}
+                                                imagePath={thing.imagePath}
+                                                price={thing.price}
+                                                />
+                                    })
+                                }
+                            </div>
+                        </details>
+                    )
+                })
+                }
+        </div>
         </Suspense>
     )
 }

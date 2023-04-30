@@ -2,91 +2,68 @@
 
 import Button, { ButtonStyle } from "@/components/Button";
 import Input, { InputIcons } from "@/components/Input";
-import Image from 'next/image'
 import Textarea from "@/components/Textarea";
-import { ABOUT_ME_PLACEHOLDER, DEFAULT_IMAGE, PHONE_PLACEHOLDER, RESUME_LINK_PLACEHOLDER, SEND_BTN_TEXT, USER_NAME_PLACEHOLDER } from "@/constants/placeholders";
+import { ABOUT_ME_PLACEHOLDER, PHONE_PLACEHOLDER, RESUME_LINK_PLACEHOLDER, SEND_BTN_TEXT, USER_NAME_PLACEHOLDER, VACANCY_FORM_TITLE } from "@/constants/placeholders";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
-import { ImageType } from "@/typings";
+import { getVacancies } from "@/lib/getVacancies";
+import VacancyCard from "@/components/VacancyCard";
 
-export default function Vacancies() {
+export default async function Vacancies() {
     enum InputsName {
         NAME="name",
+        PROFESSION="profession",
         PHONE="phone",
         URL="url",
         DESCRIPTION="description",
     }
     type FormInputs = {
         [InputsName.NAME]: string,
+        [InputsName.PROFESSION]: string,
         [InputsName.PHONE]: string,
         [InputsName.URL]?: string,
-        [InputsName.DESCRIPTION]?: string,
-
+        [InputsName.DESCRIPTION]?: string
     }
-    type VacanciesConfig = {
-        [profession: string]: {
-            title: string,
-            count: number,
-            salary: number,
-            description: string,
-            imagePath: string,
-            alt: string
-        }
-    };
-    const {register, handleSubmit} = useForm<FormInputs>();
+
+    const {register, handleSubmit, setValue} = useForm<FormInputs>();
     const onSubmit: SubmitHandler<FormInputs> = data => console.log(data);
-    const [data, setData] = useState<VacanciesConfig|null>(null);
-    const [image, setImage] = useState<ImageType|null>(null);
-    useEffect(()=>{
-        async function getData() {
-            const response = await fetch("http://localhost:3000/api/vacancies", {cache: "no-store"});
-            const json = await response.json();
-            setData(json);
-        }
-        if (data === null)
-            getData();
-    })
+    const vacancies = await getVacancies();
+
     return (
         <>
-            <div className="relative col-start-1 col-end-3">
-                <Image src={image?.imagePath||DEFAULT_IMAGE.path} alt={image?.alt||DEFAULT_IMAGE.alt} fill />
-            </div>
-            <div className="overflow-hidden col-start-3 col-end-5 p-10">
-                {data !== null ?
-                Object.keys(data).map(profession => {
-                    const id = `id_${profession}`;
-                    const changeImage = (e: any) => {
-                        document.querySelectorAll("details").forEach(detail=>{if (detail.id !== id) detail.open = false})
-                        const details: HTMLDetailsElement = document.getElementById(id) as HTMLDetailsElement
-                        if (!details.open) {
-                            details.open = true;
-                            setImage({imagePath: data[profession].imagePath, alt: data[profession].alt});
-                        } else {
-                            details.open = false;
-                            setImage({imagePath: "", alt: ""});
-                        }
+            <div className="h-full col-start-1 col-end-5 overflow-y-auto scrollbar grid grid-cols-2 justify-items-center p-10 gap-5">
+                {vacancies !== null ?
+                Object.keys(vacancies).map(profession => {
+                    const chooseVacancy = () => {
+                        const form = document.querySelectorAll("form")[0];
+                        const formTitle = form.children[0];
+                        formTitle.innerHTML = VACANCY_FORM_TITLE + profession;
+                        setValue(InputsName.PROFESSION, profession);
+                        if (form.style.display === "none")
+                            form.style.display = "flex";
                     }
                     return (
-                        <div key={profession} className="flex flex-col gap-y-6">
-                        <Button text={data[profession].title} click={changeImage} />
-                        <details className="w-fit" id={id}>
-                            <summary className="hidden">{data[profession].title}</summary>
-                            <div>
-                                <span>Рабочих мест: {data[profession].count} з/п: {data[profession].salary}</span>
-                                <p>{data[profession].description}</p>
-                            </div>
-                        </details>
-                        </div>
+                        <VacancyCard
+                        key={profession}
+                        title={profession}
+                        salary={vacancies[profession].salary}
+                        count={vacancies[profession].count}
+                        description={vacancies[profession].description}
+                        imagePath={vacancies[profession].imagePath}
+                        click={chooseVacancy}
+                        />
                     )
                 }) : null}
             </div>
-            <form className="col-start-5 col-end-7 my-56 flex flex-col gap-y-5" onSubmit={handleSubmit(onSubmit)}>
+            <form className="col-start-5 col-end-7 my-56 flex flex-col gap-y-5" onSubmit={handleSubmit(onSubmit)} style={{display: "none"}}>
+                <h1>{VACANCY_FORM_TITLE}</h1>
                 <Input placeholder={USER_NAME_PLACEHOLDER} icon={InputIcons.USER} register={register(InputsName.NAME, {required: true})}/>
                 <Input placeholder={PHONE_PLACEHOLDER} type="tel" register={register(InputsName.PHONE, {required: true})}/>
                 <Input placeholder={RESUME_LINK_PLACEHOLDER} type="url" register={register(InputsName.URL)}/>
                 <Textarea placeholder={ABOUT_ME_PLACEHOLDER} register={register(InputsName.DESCRIPTION)}/>
                 <Button text={SEND_BTN_TEXT} type="submit" style={ButtonStyle.CTA}/>
+                <input {...register(InputsName.PROFESSION)} type="hidden" />
             </form>
+
         </>
     )
 }
