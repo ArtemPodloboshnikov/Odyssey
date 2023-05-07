@@ -1,3 +1,4 @@
+import { COUNT_PLACEHOLDER, SALARY_PLACEHOLDER } from "@/constants/placeholders";
 import { ImageType } from "@/typings";
 
 type VacancyCardType = {
@@ -11,8 +12,8 @@ type VacancyCardType = {
 const VacancyCard: React.FC<VacancyCardType> = ({imagePath, title, description, salary, count, click}) => {
     return (
         <div
-        style={{backgroundImage: `url(${imagePath})`}}
-        className="group h-5/6 rounded-[12px] bg-center bg-no-repeat bg-cover cursor-pointer"
+        style={{backgroundImage: `url(${imagePath})`, height: "650px"}}
+        className="group w-full rounded-[12px] bg-center bg-no-repeat bg-cover cursor-pointer"
         onClick={click}
         >
             <div
@@ -21,8 +22,8 @@ const VacancyCard: React.FC<VacancyCardType> = ({imagePath, title, description, 
             >
                 <h1 className="w-40 text-2xl font-semibold text-center">{title}</h1>
                 <div className="grid grid-flow-col justify-between w-full">
-                    <span>Рабочих мест: {count}</span>
-                    <span>з/п: {salary}</span>
+                    <span>{COUNT_PLACEHOLDER}: {count}</span>
+                    <span>{SALARY_PLACEHOLDER} {salary}</span>
                 </div>
                 <p className="overflow-y-auto scrollbar text-justify">{description}</p>
             </div>

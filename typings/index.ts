@@ -21,3 +21,9 @@ export type VacanciesConfig = {
         imagePath: string,
     }
 };
+
+export enum FormCategory {
+    SERVICIES="services",
+    MENU="menu",
+    VACANCIES="vacancies"
+}

@@ -1,11 +1,18 @@
 import path from 'path';
 import { promises as fs } from 'fs';
 
+const baseFolder = path.join(process.cwd(), 'public');
+const configPath = '/config/vacancies.json';
+const fullPath = baseFolder + configPath;
 export async function GET(request: Request) {
-  const jsonDirectory = path.join(process.cwd(), 'public');
-  //Read the json data file data.json
-  const fileContents = await fs.readFile(jsonDirectory + '/config/vacancies.json', 'utf8');
-  //Return the content of the data file in json format
-  // response.status(200).json(fileContents);
+  const fileContents = await fs.readFile(fullPath, 'utf8');
   return new Response(fileContents)
+}
+
+export async function POST(request: Request) {
+  const data = await request.json();
+  const fileContents = JSON.parse(await fs.readFile(fullPath, 'utf8'));
+  const newContent = JSON.stringify({...fileContents, ...data});
+  await fs.writeFile(fullPath, newContent)
+  return new Response(JSON.stringify({status: 200}))
 }
