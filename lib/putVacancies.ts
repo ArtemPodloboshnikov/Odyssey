@@ -1,8 +1,8 @@
 import { VacanciesConfig } from "@/typings";
 
-export async function postVacancies(vacancy: VacanciesConfig) {
+export async function putVacancies(vacancy: VacanciesConfig) {
     const response = await fetch("http://localhost:3000/api/vacancies", {
-        method: "POST",
+        method: "PUT",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },

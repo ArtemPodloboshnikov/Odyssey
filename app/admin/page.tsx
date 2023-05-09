@@ -1,112 +1,89 @@
 "use client"
 
-import Button, { ButtonStyle } from "@/components/Button";
-import FileLoader from "@/components/FileLoader";
-import Galary from "@/components/Galary";
+import FormJob from "@/components/FormJob";
+import { useEffect, useRef, useState } from "react";
+import { getServices } from "@/lib/getServices";
+import { getMenu } from "@/lib/getMenu";
+import { getCookie } from "@/lib/getCookie";
+import { AUTHORIZATION_COOKIE_NAME } from "@/constants/cookies";
+import Authorization from "@/components/Authorization";
+import Loading from "../loading";
+import FormServices, { FormServicesProps } from "@/components/FormServices";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { AuthorizationData } from "@/typings";
 import Input, { InputIcons } from "@/components/Input";
-import Textarea from "@/components/Textarea";
-import { COUNT_PLACEHOLDER, PROFESSION_PLACEHOLDER, SALARY_PLACEHOLDER, UPDATE_BTN_TEXT, VACANCY_PLACEHOLDER } from "@/constants/placeholders";
-import { getVacancies } from "@/lib/getVacancies";
-import { postVacancies } from "@/lib/postVacancies";
-import { uploadFiles } from "@/lib/uploadFiles";
-import { FormCategory, VacanciesConfig } from "@/typings";
-import { useEffect, useState } from "react";
-import { SubmitHandler, useForm, useWatch } from "react-hook-form";
-import { transliterate as tr } from 'transliteration';
+import { LOGIN_PLACEHOLDER, PASSWORD_PLACEHOLDER, UPDATE_BTN_TEXT } from "@/constants/placeholders";
+import Button from "@/components/Button";
+import { putAuthorization } from "@/lib/putAuthorization";
+import DialogWindow from "@/components/DialogWindow";
 
 export default function Admin() {
-    enum InputsName {
-        PROFESSION="profession",
-        SALARY="salary",
-        COUNT="count",
-        DESCRIPTION="description",
-        IMAGE="image",
-        CATEGORY="category"
+    const [auth, setAuth] = useState<boolean|undefined>(undefined);
+    const [dialog, setDialog] = useState<boolean>(false);
+    const [status, setStatus] = useState<number>(0);
+    const isFirstRender = useRef(true);
+    const dataDefault: FormServicesProps = {menu: [], services: []};
+    const [data, setData] = useState<FormServicesProps>(dataDefault);
+
+    const {register, handleSubmit} = useForm<AuthorizationData>()
+
+    const onSubmit: SubmitHandler<AuthorizationData> = async (data) => {
+        const code = await putAuthorization(data);
+        setStatus(code);
+        setDialog(true);
     }
 
-    type FormInputs = {
-        [InputsName.PROFESSION]: string,
-        [InputsName.SALARY]: number,
-        [InputsName.COUNT]: number,
-        [InputsName.DESCRIPTION]: string,
-        [InputsName.IMAGE]: {[key: number]: File},
-        [InputsName.CATEGORY]: FormCategory
-    }
-
-    const {register, handleSubmit, setValue, getValues, control} = useForm<FormInputs>();
-    const profession = useWatch({name: InputsName.PROFESSION, control});
-    const galary = useWatch({name: InputsName.IMAGE, control});
-    const [data, setData] = useState<VacanciesConfig>({});
-    const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-        console.log(data);
-        const vacancy: VacanciesConfig = {
-            [data.profession]: {
-                count: data.count,
-                description: data.description,
-                salary: data.salary,
-                imagePath: `${tr(data.profession)}.jpg`
-            }
-        }
-        // const formData = new FormData();
-        // const files = Object.values(data.image);
-        // files.forEach(file => {
-        //     formData.append('files', file, file.name)
-        // })
-
-        // const fileName = await uploadFiles(formData, data.category);
-        // console.log(fileName);
-        const res = await postVacancies(vacancy)
-        console.log(res);
-    };
-
-
-
-    useEffect(()=>{
+    useEffect(()=> {
         const getData = async () => {
-            setData(await getVacancies());
+            const services = await getServices();
+            const menu = await getMenu();
+            setData({
+                services: services,
+                menu: menu
+            });
         }
 
-        if (Object.keys(data).length === 0)
-        getData();
+        if (data.menu.length === 0 && auth)
+            getData();
+
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            setAuth(getCookie(AUTHORIZATION_COOKIE_NAME) === "true")
+            return;
+        }
     })
 
     return (
-        <div className="col-start-1 col-end-5 grid grid-cols-4 overflow-hidden">
-            <form className="col-start-1 col-end-3 my-56 mx-10 flex flex-col gap-y-5" onSubmit={handleSubmit(onSubmit)}>
-                <Input
-                register={register(InputsName.PROFESSION)}
-                placeholder={PROFESSION_PLACEHOLDER}
-                icon={InputIcons.BRIEFCASE}
-                type="select"
-                options={Object.keys(data)}
-                setValue={setValue}
-                />
-                <Input
-                register={register(InputsName.SALARY)}
-                placeholder={SALARY_PLACEHOLDER}
-                icon={InputIcons.MONEY}
-                type="number"
-                defaultValue={data[profession]?.salary}
-                />
-                <Input
-                register={register(InputsName.COUNT)}
-                placeholder={COUNT_PLACEHOLDER}
-                icon={InputIcons.USERS}
-                type="number"
-                defaultValue={data[profession]?.count}
-                />
-                <Textarea
-                register={register(InputsName.DESCRIPTION)}
-                placeholder={VACANCY_PLACEHOLDER}
-                defaultValue={data[profession]?.description}
-                />
-                <FileLoader register={register(InputsName.IMAGE)} setValue={setValue} getValues={getValues} />
-                <input {...register(InputsName.CATEGORY)} type="hidden" value={FormCategory.VACANCIES} />
-                <Button text={UPDATE_BTN_TEXT} style={ButtonStyle.SIMPLE} type="submit" />
-            </form>
-            <div className="col-start-1 col-start-3 col-end-5 h-full">
-                <Galary files={galary} />
-            </div>
-        </div>
+        <>
+        {(()=>{
+            switch(auth) {
+                case true: {
+                    return (
+                        <>
+                        <div className="col-start-1 col-end-5 grid grid-cols-4 overflow-hidden">
+                            <FormJob />
+                        </div>
+                        <div className="col-start-5 col-end-7 overflow-y-auto scrollbar my-20 pr-5 flex flex-col gap-y-10">
+                            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-5">
+                                <Input register={register("login")} placeholder={LOGIN_PLACEHOLDER} icon={InputIcons.USER} />
+                                <Input register={register("password")} placeholder={PASSWORD_PLACEHOLDER} type="password" />
+                                <Button text={UPDATE_BTN_TEXT} type="submit"/>
+                            </form>
+                            <FormServices menu={data.menu} services={data.services} setData={setData} />
+                        </div>
+                        <DialogWindow isOpen={dialog} onClose={()=>setDialog(false)} status={status}/>
+                        </>
+                    )
+                }
+                case false: {
+                    return <Authorization setAuth={setAuth}/>
+                }
+                default: {
+                    return <Loading />
+                }
+            }
+        })()
+        }
+        </>
     )
 }

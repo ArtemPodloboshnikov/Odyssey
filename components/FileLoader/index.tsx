@@ -49,7 +49,7 @@ const FileLoader:React.FC<FileLoaderProps> = ({register, setValue, getValues, pl
   const file: FileList|File = getValues(register.name);
   return (
     <label
-      className={`border-dashed border-2 border-gray-400 rounded-lg p-4 cursor-pointer ${dragging ? "bg-gray-100": null}`}
+      className={`w-full h-fit border-dashed border-2 border-gray-400 rounded-lg p-4 cursor-pointer ${dragging ? "bg-gray-100": null}`}
       onDragEnter={handleDragEnter}
       onDragOver={handleDragEnter}
       onDragLeave={handleDragLeave}

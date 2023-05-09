@@ -27,3 +27,13 @@ export enum FormCategory {
     MENU="menu",
     VACANCIES="vacancies"
 }
+
+export type AuthorizationData = {
+    login: string,
+    password: string
+}
+
+export enum GetTypeGalary {
+    MENU="menu",
+    SERVICES="services"
+}

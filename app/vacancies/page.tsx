@@ -30,7 +30,7 @@ export default async function Vacancies() {
 
     return (
         <>
-            <div className="h-full col-start-1 col-end-5 overflow-y-auto scrollbar grid grid-cols-2 justify-items-center pl-10 pr-10 mt-10 gap-5">
+            <div className="h-5/6 col-start-1 col-end-5 overflow-y-auto scrollbar grid grid-cols-2 justify-items-center pl-10 pr-10 mt-10 gap-5">
                 {vacancies !== null ?
                 Object.keys(vacancies).map(profession => {
                     const chooseVacancy = () => {

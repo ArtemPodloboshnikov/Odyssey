@@ -1,34 +1,19 @@
 import { Suspense } from "react";
-import Loading from "./loading";
-import DrinkCard from "@/components/MenuCard";
-import { getMenu } from "@/lib/getMenu";
+import Loading from "../loading";
+import UserGalary from "@/components/UserGalary";
+import { GetTypeGalary } from "@/typings";
+import { Metadata } from "next";
 
-export default async function Menu() {
-    const menu = await getMenu();
+export const metadata: Metadata = {
+  title: "Меню",
+  description: "Добро пожаловать в лучший ночной клуб в России! Наш клуб предлагает все самое лучшее - от самых горячих девочек и зажигательной музыки до вкусных напитков и заряжающей энергией атмосферы. Присоединяйтесь к нам, чтобы провести незабываемый вечер со своими друзьями или с кем-то особенным. Покупайте билеты прямо сейчас и приготовьтесь наслаждаться  всю ночь напролет!",
+  keywords: "ночной клуб, вечеринка, мероприятия, танцы, музыка, ночная жизнь, Россия, билеты, напитки, развлечения, Санкт-Петербург, стриптизёрши, стриптиз"
+}
+
+export default function Menu() {
     return (
         <Suspense fallback={<Loading/>}>
-            <div className="col-start-1 col-end-7 flex flex-col p-10 h-full overflow-y-auto scrollbar">
-                {Object.keys(menu)?.map(title => {
-                    return (
-                        <details key={title}>
-                            <summary className="font-bold">{title}</summary>
-                            <div className="overflow-y-auto scrollbar p-10 grid grid-cols-5 gap-5 h-fit">
-                                {menu[title]?.map(thing => {
-                                        return <DrinkCard
-                                                key={thing.title}
-                                                title={thing.title}
-                                                additional={thing.additional}
-                                                imagePath={thing.imagePath}
-                                                price={thing.price}
-                                                />
-                                    })
-                                }
-                            </div>
-                        </details>
-                    )
-                })
-                }
-        </div>
+           <UserGalary getType={GetTypeGalary.MENU} />
         </Suspense>
     )
 }

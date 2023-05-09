@@ -11,3 +11,7 @@ export const VACANCY_PLACEHOLDER = "Опишите то, чем прийдётс
 export const UPDATE_BTN_TEXT = "Обновить";
 
 export const FILE_INPUT_PLACEHOLDER = "Перетащите файлы или выберите их";
+
+export const LOGIN_PLACEHOLDER = "Логин";
+export const PASSWORD_PLACEHOLDER = "Пароль";
+export const LOGIN_BTN_TEXT = "Войти";
