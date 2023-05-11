@@ -7,13 +7,23 @@ import Galary from "../Galary";
 import FileLoader from "../FileLoader";
 import Button from "../Button";
 import { UPDATE_BTN_TEXT } from "@/constants/placeholders";
+import { uploadFiles } from "@/lib/uploadFiles";
+import { FormCategory } from "@/typings";
 
 export type FormServicesProps = {
     services: string[],
     menu: string[]
 }
 
-const FormServices: React.FC<FormServicesProps&{setData: Dispatch<SetStateAction<any>>}> = ({menu, services, setData}) => {
+type FormServicesAdditionalProps = {
+    setDialog: Dispatch<SetStateAction<{
+        open: boolean;
+        status: number;
+    }>>,
+    setData: Dispatch<SetStateAction<any>>
+}
+
+const FormServices: React.FC<FormServicesProps&FormServicesAdditionalProps> = ({menu, services, setData, setDialog}) => {
     enum InputsName {
         MENU="menu",
         SERVICES="services"
@@ -35,8 +45,20 @@ const FormServices: React.FC<FormServicesProps&{setData: Dispatch<SetStateAction
         control: controlServices
     } = useForm<ServicesInputs>();
 
+    const getFormData = (data: {[nameInput: string]: {[key: number]: File}}, name: InputsName) => {
+        const files = Object.values(data[name]);
+        const formData = new FormData();
+        files.forEach(file => {
+            formData.append('files', file, file.name)
+        })
+
+        return formData;
+    }
+
     const onSubmitServices: SubmitHandler<ServicesInputs> = async (data) => {
-        console.log(data);
+        const formData = getFormData(data, InputsName.SERVICES);
+        const res = await uploadFiles(formData, FormCategory.SERVICIES);
+        setDialog({open: true, status: res});
     }
 
     const {
@@ -48,7 +70,9 @@ const FormServices: React.FC<FormServicesProps&{setData: Dispatch<SetStateAction
     } = useForm<MenuInputs>();
 
     const onSubmitMenu: SubmitHandler<MenuInputs> = async (data) => {
-        console.log(data);
+        const formData = getFormData(data, InputsName.MENU);
+        const res = await uploadFiles(formData, FormCategory.MENU);
+        setDialog({open: true, status: res});
     }
 
     const galaryServices = useWatch({name: InputsName.SERVICES, control: controlServices});

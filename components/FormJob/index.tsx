@@ -36,8 +36,7 @@ const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
         [InputsName.SALARY]: number,
         [InputsName.COUNT]: number,
         [InputsName.DESCRIPTION]: string,
-        [InputsName.IMAGE]: {[key: number]: File},
-        [InputsName.CATEGORY]: FormCategory
+        [InputsName.IMAGE]: {[key: number]: File}
     }
 
     const {register, handleSubmit, setValue, getValues, control} = useForm<FormInputs>();
@@ -59,7 +58,7 @@ const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
             formData.append('files', file, file.name)
         })
 
-        await uploadFiles(formData, dataUpdate.category);
+        await uploadFiles(formData, FormCategory.VACANCIES);
         let res: number;
         if (data[dataUpdate.profession] !== undefined)
             res = await putVacancies(vacancy);
@@ -110,7 +109,6 @@ const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
                 defaultValue={data[profession]?.description}
                 />
                 <FileLoader register={register(InputsName.IMAGE)} setValue={setValue} getValues={getValues} />
-                <input {...register(InputsName.CATEGORY)} type="hidden" value={FormCategory.VACANCIES} />
                 <Button text={UPDATE_BTN_TEXT} style={ButtonStyle.SIMPLE} type="submit" />
             </form>
             <div className="col-start-1 col-start-3 col-end-5 h-full my-20">

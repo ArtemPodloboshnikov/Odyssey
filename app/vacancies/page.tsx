@@ -1,80 +1,16 @@
-"use client"
+import FormVacancy from "@/components/FormVacancy";
+import { Metadata } from "next";
 
-import Button, { ButtonStyle } from "@/components/Button";
-import Input, { InputIcons } from "@/components/Input";
-import Textarea from "@/components/Textarea";
-import { ABOUT_ME_PLACEHOLDER, PHONE_PLACEHOLDER, RESUME_LINK_PLACEHOLDER, SEND_BTN_TEXT, USER_NAME_PLACEHOLDER, PROFESSION_PLACEHOLDER } from "@/constants/placeholders";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { getVacancies } from "@/lib/getVacancies";
-import VacancyCard from "@/components/VacancyCard";
-import { useEffect, useState } from "react";
-import { VacanciesConfig } from "@/typings";
+export const metadata: Metadata = {
+    title: "Вакансии",
+    description: "Присоединяйтесь к нашей команде в ярком и захватывающем ночном клубе! Мы нанимаем дружелюбных и общительных людей, чтобы обеспечить исключительный сервис для наших клиентов. Как часть нашей команды, у вас будет возможность работать с разнообразной группой талантливых людей, доставляя нашим гостям волшебные моменты и исключительные впечатления. Кандидаты должны быть надежными, полными энтузиазма и получать удовольствие от работы в быстро меняющейся среде. Предпочтителен предыдущий опыт работы в индустрии гостеприимства или развлечений.",
+    keywords: "ночной клуб, вакансия, индустрия развлечений, гостеприимство, обслуживание клиентов, быстро меняющаяся среда, командный игрок, коммуникабельная личность, надежные, талантливые люди, разнообразная культура, опыт работы в сфере гостеприимства, предыдущий опыт работы в индустрии развлечений, Санкт-Петербург, стриптиз"
+}
 
-export default async function Vacancies() {
-    enum InputsName {
-        NAME="name",
-        PROFESSION="profession",
-        PHONE="phone",
-        URL="url",
-        DESCRIPTION="description",
-    }
-    type FormInputs = {
-        [InputsName.NAME]: string,
-        [InputsName.PROFESSION]: string,
-        [InputsName.PHONE]: string,
-        [InputsName.URL]?: string,
-        [InputsName.DESCRIPTION]?: string
-    }
-
-    const {register, handleSubmit, setValue} = useForm<FormInputs>();
-    const onSubmit: SubmitHandler<FormInputs> = data => console.log(data);
-    const [vacancies, setVacancies] = useState<VacanciesConfig>({});
-
-    useEffect(()=>{
-        const getData = async () => {
-            setVacancies(await getVacancies());
-        }
-
-        if (!Object.keys(vacancies).length)
-            getData()
-    })
-
+export default function Vacancies() {
     return (
         <>
-            <div className="h-5/6 col-start-1 col-end-5 overflow-y-auto scrollbar grid grid-cols-2 justify-items-center pl-10 pr-10 mt-10 gap-5">
-                {vacancies !== null ?
-                Object.keys(vacancies).map(profession => {
-                    const chooseVacancy = () => {
-                        const form = document.querySelectorAll("form")[0];
-                        const formTitle = form.children[0];
-                        formTitle.innerHTML = `${PROFESSION_PLACEHOLDER}: ${profession}`;
-                        setValue(InputsName.PROFESSION, profession);
-                        if (form.style.display === "none")
-                            form.style.display = "flex";
-                    }
-                    return (
-                        <VacancyCard
-                        key={profession}
-                        title={profession}
-                        salary={vacancies[profession].salary}
-                        count={vacancies[profession].count}
-                        description={vacancies[profession].description}
-                        imagePath={vacancies[profession].imagePath}
-                        click={chooseVacancy}
-                        />
-                    )
-                }) : null}
-            </div>
-            <form className="col-start-5 col-end-7 my-56 flex flex-col gap-y-5 pl-14" onSubmit={handleSubmit(onSubmit)} style={{display: "none"}}>
-                <h1>{PROFESSION_PLACEHOLDER}</h1>
-                <Input placeholder={USER_NAME_PLACEHOLDER} icon={InputIcons.USER} register={register(InputsName.NAME, {required: true})}/>
-                <Input placeholder={PHONE_PLACEHOLDER} type="tel" register={register(InputsName.PHONE, {required: true})}/>
-                <Input placeholder={RESUME_LINK_PLACEHOLDER} type="url" register={register(InputsName.URL)}/>
-                <Textarea placeholder={ABOUT_ME_PLACEHOLDER} register={register(InputsName.DESCRIPTION)}/>
-                <Button text={SEND_BTN_TEXT} type="submit" style={ButtonStyle.CTA}/>
-                <input {...register(InputsName.PROFESSION)} type="hidden" />
-            </form>
-
+            <FormVacancy />
         </>
     )
 }

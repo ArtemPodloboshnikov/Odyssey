@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function Services() {
   return (
     <Suspense fallback={<Loading/>}>
-       <UserGalary getType={GetTypeGalary.MENU} />
+       <UserGalary getType={GetTypeGalary.SERVICES} />
     </Suspense>
   )
 }
