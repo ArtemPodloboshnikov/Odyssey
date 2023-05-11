@@ -1,5 +1,7 @@
 export async function deleteFile(path: string) {
-    const response = await fetch(`http://localhost:3000/api/files?path=${path}`, {
+    const domain = window.location.protocol + "//" + window.location.host;
+
+    const response = await fetch(`${domain}/api/files?path=${path}`, {
         method: "DELETE"
     });
     return response.status;

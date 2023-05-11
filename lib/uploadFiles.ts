@@ -1,8 +1,9 @@
 import { FormCategory } from "@/typings";
 
 export async function uploadFiles(files: FormData, category: FormCategory) {
-    console.log(files.getAll("files"))
-    const response = await fetch(`http://localhost:3000/api/files?category=${category}`, {
+    const domain = window.location.protocol + "//" + window.location.host;
+
+    const response = await fetch(`${domain}/api/files?category=${category}`, {
         method: "POST",
         body: files
     });
