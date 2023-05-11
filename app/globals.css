@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+  )
+  rgb(var(--background-start-rgb));
+  display: grid;
+  grid-template-columns: 85% 15%;
+  position: relative;
+  background-color:hsla(0,100%,50%,1);
+  background-image:
+radial-gradient(at 40% 20%, hsla(28,100%,74%,1) 0px, transparent 50%),
+radial-gradient(at 80% 0%, rgb(255, 31, 199) 0px, transparent 50%),
+radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%),
+radial-gradient(at 80% 50%, hsla(340,100%,76%,1) 0px, transparent 50%),
+radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0px, transparent 50%),
+radial-gradient(at 80% 100%, hsla(242,100%,70%,1) 0px, transparent 50%),
+radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%);
+  /* background: #150813; */
+  /* background: linear-gradient(22deg, #e70f5e, #b35ac3, #148ae3);
+
+
+  -webkit-animation: bg 30s ease infinite;
+  -moz-animation: bg 30s ease infinite;*/
+  background-size: 210% 210%;
+  animation: bg 15s ease infinite;
+}
+
+body::before {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0,.8);
+  /* backdrop-filter: blur(0px); */
+}
+
+@-webkit-keyframes bg {
+  /* 0%{background-position:0% 94%}
+  50%{background-position:100% 7%}
+  100%{background-position:0% 94%} */
+  0%{
+    background-color:#99ebff;
+background-image:
+radial-gradient(at 2% 21%, hsla(333,75%,78%,1) 0px, transparent 50%),
+radial-gradient(at 8% 95%, hsla(277,90%,74%,1) 0px, transparent 50%),
+radial-gradient(at 34% 96%, hsla(28,78%,69%,1) 0px, transparent 50%),
+radial-gradient(at 90% 64%, hsla(6,78%,64%,1) 0px, transparent 50%),
+radial-gradient(at 85% 75%, hsla(289,67%,77%,1) 0px, transparent 50%),
+radial-gradient(at 80% 64%, hsla(269,91%,61%,1) 0px, transparent 50%),
+radial-gradient(at 10% 27%, hsla(60,76%,60%,1) 0px, transparent 50%);
+  }
+  50%{
+    background-color:#ff9e99;
+    background-image:
+    radial-gradient(at 96% 78%, hsla(25,81%,61%,1) 0px, transparent 50%),
+    radial-gradient(at 78% 17%, hsla(283,69%,68%,1) 0px, transparent 50%),
+    radial-gradient(at 1% 90%, hsla(254,86%,68%,1) 0px, transparent 50%),
+    radial-gradient(at 73% 77%, hsla(144,76%,72%,1) 0px, transparent 50%),
+    radial-gradient(at 11% 52%, hsla(258,72%,71%,1) 0px, transparent 50%),
+    radial-gradient(at 26% 59%, hsla(47,91%,71%,1) 0px, transparent 50%),
+    radial-gradient(at 39% 33%, hsla(77,83%,66%,1) 0px, transparent 50%);
+  }
+  100%{
+    background-color:#a099ff;
+    background-image:
+    radial-gradient(at 5% 97%, hsla(291,72%,75%,1) 0px, transparent 50%),
+    radial-gradient(at 79% 96%, hsla(18,74%,61%,1) 0px, transparent 50%),
+    radial-gradient(at 99% 85%, hsla(275,84%,60%,1) 0px, transparent 50%),
+    radial-gradient(at 68% 40%, hsla(279,97%,68%,1) 0px, transparent 50%),
+    radial-gradient(at 70% 68%, hsla(155,60%,73%,1) 0px, transparent 50%),
+    radial-gradient(at 12% 80%, hsla(140,65%,76%,1) 0px, transparent 50%),
+    radial-gradient(at 91% 41%, hsla(73,76%,60%,1) 0px, transparent 50%);
+  }
+}
+@-moz-keyframes bg {
+  0%{background-position:0% 94%}
+  50%{background-position:100% 7%}
+  100%{background-position:0% 94%}
+}
+@-o-keyframes bg {
+  0%{background-position:0% 94%}
+  50%{background-position:100% 7%}
+  100%{background-position:0% 94%}
+}
+@keyframes bg {
+  0%{background-position:0% 94%}
+  50%{background-position:100% 7%}
+  100%{background-position:0% 94%}
+}
+
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #f7f4ed;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #e0cbcb;
+    border-radius: 100vh;
+    border: 3px solid #f6f7ed;
+    background: radial-gradient(circle at 14px 18px, white 5px, transparent 7px) no-repeat, radial-gradient(circle at 14px calc(100% - 18px), white 5px, transparent 7px) no-repeat, linear-gradient(white, white) center no-repeat;
+    box-shadow:
+      0 0 7px #fff,
+      0 0 10px #fff,
+      0 0 21px #fff,
+      0 0 42px rgb(255, 0, 225);
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #c0a0b9;
+  }
+
+  @variants dark {
+    .scrollbar::-webkit-scrollbar {
+      width: 9px;
+      height: 9px;
+    }
+
+    .scrollbar::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.5);
+      border-radius: none;
+    }
+
+    .scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.5);
+      border-radius: none;
+      border: none;
+      box-shadow: none;
+    }
+
+    .scrollbar::-webkit-scrollbar-thumb:hover {
+      background: black;
+    }
+  }
+}
