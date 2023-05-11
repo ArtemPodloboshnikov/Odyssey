@@ -7,6 +7,8 @@ import { ABOUT_ME_PLACEHOLDER, PHONE_PLACEHOLDER, RESUME_LINK_PLACEHOLDER, SEND_
 import { SubmitHandler, useForm } from "react-hook-form";
 import { getVacancies } from "@/lib/getVacancies";
 import VacancyCard from "@/components/VacancyCard";
+import { useEffect, useState } from "react";
+import { VacanciesConfig } from "@/typings";
 
 export default async function Vacancies() {
     enum InputsName {
@@ -26,7 +28,16 @@ export default async function Vacancies() {
 
     const {register, handleSubmit, setValue} = useForm<FormInputs>();
     const onSubmit: SubmitHandler<FormInputs> = data => console.log(data);
-    const vacancies = await getVacancies();
+    const [vacancies, setVacancies] = useState<VacanciesConfig>({});
+
+    useEffect(()=>{
+        const getData = async () => {
+            setVacancies(await getVacancies());
+        }
+
+        if (!Object.keys(vacancies).length)
+            getData()
+    })
 
     return (
         <>
