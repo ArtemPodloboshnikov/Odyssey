@@ -1,7 +1,8 @@
 import { VacanciesConfig } from "@/typings";
 
 export async function postVacancies(vacancy: VacanciesConfig) {
-    const response = await fetch("http://localhost:3000/api/vacancies", {
+    const domain = window.location.protocol + "//" + window.location.host;
+    const response = await fetch(`${domain}/api/vacancies`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
