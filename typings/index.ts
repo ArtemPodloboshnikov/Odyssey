@@ -25,7 +25,7 @@ export type VacanciesConfig = {
 export enum FormCategory {
     SERVICIES="services",
     MENU="menu",
-    VACANCIES="vacancies"
+    VACANCIES="professions"
 }
 
 export type AuthorizationData = {

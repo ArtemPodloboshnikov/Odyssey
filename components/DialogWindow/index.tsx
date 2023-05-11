@@ -22,10 +22,7 @@ const DialogWindow: React.FC<DialogWindowProps> = ({isOpen, onClose, status, tit
         <>
         {isOpen ?
               <>
-              {/* Overlay */}
               <div className="fixed inset-0 bg-gray-900 opacity-50 z-50" />
-
-              {/* Dialog */}
               <div className="w-fit h-fit max-h-36 fixed bg-white px-4 py-2 rounded-lg shadow-xl z-50 top-1/2 left-1/2 -translate-y-1/2 -translate-x-2/4">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-lg text-stone-950 font-semibold">{title||statusMessage[status].title}</h2>

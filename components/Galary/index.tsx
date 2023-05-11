@@ -74,7 +74,6 @@ const Galary: React.FC<GalaryProps> = ({files, paths, deleteImage, slider=false}
                     if (!images.length) {
                         for (let i=0; i < filesArray.length; i++) {
                             ReaderFile(files[i], (res: string)=>{
-                                // srcs.push(res)
                                 setImages((array) => [...array, res])
                             });
                         }
@@ -91,7 +90,7 @@ const Galary: React.FC<GalaryProps> = ({files, paths, deleteImage, slider=false}
                         <ImageDiv key={index} src={path} cross />
                     )))
                 }
-                console.log(res)
+
                 return res[current];
             })()
             }

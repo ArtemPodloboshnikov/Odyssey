@@ -11,10 +11,17 @@ import { postVacancies } from "@/lib/postVacancies";
 import { putVacancies } from "@/lib/putVacancies";
 import { uploadFiles } from "@/lib/uploadFiles";
 import { FormCategory, VacanciesConfig } from "@/typings";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 
-const FormJob: React.FC = () => {
+type FormJobProps = {
+    setDialog: Dispatch<SetStateAction<{
+        open: boolean;
+        status: number;
+    }>>
+}
+
+const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
     enum InputsName {
         PROFESSION="profession",
         SALARY="salary",
@@ -52,12 +59,13 @@ const FormJob: React.FC = () => {
             formData.append('files', file, file.name)
         })
 
-        const fileName = await uploadFiles(formData, dataUpdate.category);
-        let res;
+        await uploadFiles(formData, dataUpdate.category);
+        let res: number;
         if (data[dataUpdate.profession] !== undefined)
             res = await putVacancies(vacancy);
         else
-            res = await postVacancies(vacancy)
+            res = await postVacancies(vacancy);
+        setDialog({open: true, status: res})
     };
 
 
