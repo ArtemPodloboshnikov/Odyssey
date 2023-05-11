@@ -68,7 +68,7 @@ export default function Admin() {
                                 <Input register={register("password")} placeholder={PASSWORD_PLACEHOLDER} type="password" />
                                 <Button text={UPDATE_BTN_TEXT} type="submit"/>
                             </form>
-                            <FormServices menu={data.menu} services={data.services} setData={setData} />
+                            <FormServices menu={data.menu} services={data.services} setData={setData} setDialog={setDialog} />
                         </div>
                         <DialogWindow isOpen={dialog.open} onClose={()=>setDialog(dialogDefault)} status={dialog.status}/>
                         </>
