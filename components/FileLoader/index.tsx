@@ -58,7 +58,7 @@ const FileLoader:React.FC<FileLoaderProps> = ({register, setValue, getValues, pl
     >
       <div className="flex flex-col items-center justify-center space-y-2">
         {file && Object.values(file).length > 0 ? (
-          <div>
+          <div className="text-white">
             {(()=>{
                 let names = [];
                 // console.log(file)
