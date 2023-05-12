@@ -1,5 +1,6 @@
-import FormVacancy from "@/components/FormVacancy";
 import { Metadata } from "next";
+import { Suspense, lazy } from "react";
+import Loading from "../loading";
 
 export const metadata: Metadata = {
     title: "Вакансии",
@@ -7,10 +8,12 @@ export const metadata: Metadata = {
     keywords: "ночной клуб, вакансия, индустрия развлечений, гостеприимство, обслуживание клиентов, быстро меняющаяся среда, командный игрок, коммуникабельная личность, надежные, талантливые люди, разнообразная культура, опыт работы в сфере гостеприимства, предыдущий опыт работы в индустрии развлечений, Санкт-Петербург, стриптиз"
 }
 
+const FormVacancyLazy = lazy(()=>import("@/components/FormVacancy"))
+
 export default function Vacancies() {
     return (
-        <>
-            <FormVacancy />
-        </>
+        <Suspense fallback={<Loading/>}>
+            <FormVacancyLazy />
+        </Suspense>
     )
 }
