@@ -15,3 +15,7 @@ export const FILE_INPUT_PLACEHOLDER = "Перетащите файлы или в
 export const LOGIN_PLACEHOLDER = "Логин";
 export const PASSWORD_PLACEHOLDER = "Пароль";
 export const LOGIN_BTN_TEXT = "Войти";
+
+export const TITLE_FIRST_VISIT = "Вам есть 18 лет?";
+export const ERROR_FIO_MESSAGE = "Введите ФИО полностью";
+export const ERORR_PHONE_MESSAGE = "Телефон не соответствует формату";

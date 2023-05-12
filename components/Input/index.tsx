@@ -1,6 +1,7 @@
 "use client"
 import { ChangeEvent, ReactNode, useState } from "react";
-import { UseFormRegisterReturn, UseFormSetValue } from "react-hook-form";
+import { FieldErrors, UseFormRegisterReturn, UseFormSetValue } from "react-hook-form";
+import { ErrorMessage } from '@hookform/error-message';
 
 export enum InputIcons {
     USER="user",
@@ -18,7 +19,8 @@ interface InputProps {
     options?: string[],
     register: UseFormRegisterReturn<any>,
     setValue?: UseFormSetValue<any>,
-    defaultValue?: string|number
+    defaultValue?: string|number,
+    errors?: FieldErrors<any>
 }
 
 const typeIcons: {[key: string]: ReactNode} = {
@@ -33,7 +35,7 @@ const typeIcons: {[key: string]: ReactNode} = {
     [InputIcons.EYE]: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
 }
 
-const Input: React.FC<InputProps> = ({placeholder, textHelper, icon, register, setValue, defaultValue, options=[], type="text"}) => {
+const Input: React.FC<InputProps> = ({placeholder, textHelper, icon, register, setValue, defaultValue, errors, options=[], type="text"}) => {
     const [showOptions, setShowOptions] = useState<boolean>(false);
     const [passwordIcon, setPasswordIcon] = useState<ReactNode>(typeIcons["password"]);
     const isSelect = type === "select";
@@ -93,12 +95,21 @@ const Input: React.FC<InputProps> = ({placeholder, textHelper, icon, register, s
             >
                 {isPassword ? passwordIcon : typeIcons[icon||type]}
             </div>
-            {textHelper ?
-                <div
-                className="absolute w-full text-sm text-neutral-500 peer-focus:text-primary dark:text-neutral-200 dark:peer-focus:text-primary"
-                data-te-input-helper-ref>
-                    {textHelper}
-                </div>
+
+            {errors ?
+            <ErrorMessage
+            errors={errors}
+            name={register.name}
+            render={()=>{
+                return (
+                    <div
+                    className="absolute w-full text-sm text-red-600 "
+                    data-te-input-helper-ref>
+                        {textHelper}
+                    </div>
+                )
+            }}
+            />
             :
             null
             }
