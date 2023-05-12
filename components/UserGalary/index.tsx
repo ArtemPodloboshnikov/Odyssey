@@ -33,7 +33,7 @@ export default function UserGalary({getType}:{getType: GetTypeGalary}) {
   })
 
     return (
-            <div className="col-start-2 col-end-6 my-6 grid grid-cols-2 items-center justify-items-center gap-10 overflow-y-auto scrollbar">
+        <div className="col-start-2 col-end-6 my-6 grid grid-cols-2 items-center justify-items-center gap-10 overflow-y-auto scrollbar">
         {images.map((src, index) => (
             <Image
             className="cursor-pointer rounded-lg"

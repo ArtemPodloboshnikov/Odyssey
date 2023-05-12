@@ -1,3 +1,5 @@
+"use client"
+
 import { FIRST_VISIT_COOKIE_NAME } from "@/constants/cookies";
 import { TITLE_FIRST_VISIT } from "@/constants/placeholders";
 import { getCookie } from "@/lib/getCookie";
