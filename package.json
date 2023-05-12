@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/error-message": "^2.0.1",
     "@react-three/drei": "^9.65.5",
     "@react-three/fiber": "^8.12.2",
     "@types/formidable": "^2.0.5",

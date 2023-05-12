@@ -3,12 +3,13 @@
 import Button, { ButtonStyle } from "@/components/Button";
 import Input, { InputIcons } from "@/components/Input";
 import Textarea from "@/components/Textarea";
-import { ABOUT_ME_PLACEHOLDER, PHONE_PLACEHOLDER, RESUME_LINK_PLACEHOLDER, SEND_BTN_TEXT, USER_NAME_PLACEHOLDER, PROFESSION_PLACEHOLDER } from "@/constants/placeholders";
+import { ABOUT_ME_PLACEHOLDER, PHONE_PLACEHOLDER, RESUME_LINK_PLACEHOLDER, SEND_BTN_TEXT, USER_NAME_PLACEHOLDER, PROFESSION_PLACEHOLDER, ERORR_PHONE_MESSAGE, ERROR_FIO_MESSAGE } from "@/constants/placeholders";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { getVacancies } from "@/lib/getVacancies";
 import VacancyCard from "@/components/VacancyCard";
 import { useEffect, useState } from "react";
 import { VacanciesConfig } from "@/typings";
+import FirstVisit from "../FirstVisit";
 
 const FormVacancy: React.FC = () => {
     enum InputsName {
@@ -26,7 +27,7 @@ const FormVacancy: React.FC = () => {
         [InputsName.DESCRIPTION]?: string
     }
 
-    const {register, handleSubmit, setValue} = useForm<FormInputs>();
+    const {register, handleSubmit, setValue, formState: {errors}} = useForm<FormInputs>();
     const onSubmit: SubmitHandler<FormInputs> = data => console.log(data);
     const [vacancies, setVacancies] = useState<VacanciesConfig>({});
 
@@ -66,14 +67,14 @@ const FormVacancy: React.FC = () => {
             </div>
             <form className="col-start-5 col-end-7 my-56 flex flex-col gap-y-5 pl-14" onSubmit={handleSubmit(onSubmit)} style={{display: "none"}}>
                 <h1>{PROFESSION_PLACEHOLDER}</h1>
-                <Input placeholder={USER_NAME_PLACEHOLDER} icon={InputIcons.USER} register={register(InputsName.NAME, {required: true})}/>
-                <Input placeholder={PHONE_PLACEHOLDER} type="tel" register={register(InputsName.PHONE, {required: true})}/>
+                <Input placeholder={USER_NAME_PLACEHOLDER} icon={InputIcons.USER} errors={errors} textHelper={ERROR_FIO_MESSAGE} register={register(InputsName.NAME, {required: true, validate: (value)=>value.split(" ").length === 3})}/>
+                <Input placeholder={PHONE_PLACEHOLDER} type="tel" errors={errors} textHelper={ERORR_PHONE_MESSAGE} register={register(InputsName.PHONE, {required: true, pattern: /((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}/})}/>
                 <Input placeholder={RESUME_LINK_PLACEHOLDER} type="url" register={register(InputsName.URL)}/>
                 <Textarea placeholder={ABOUT_ME_PLACEHOLDER} register={register(InputsName.DESCRIPTION)}/>
                 <Button text={SEND_BTN_TEXT} type="submit" style={ButtonStyle.CTA}/>
                 <input {...register(InputsName.PROFESSION)} type="hidden" />
             </form>
-
+            <FirstVisit />
         </>
     )
 }

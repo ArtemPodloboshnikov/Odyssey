@@ -6,6 +6,7 @@ import Image from "next/image";
 import { getMenu } from "@/lib/getMenu";
 import { getServices } from "@/lib/getServices";
 import { GetTypeGalary } from "@/typings";
+import FirstVisit from "../FirstVisit";
 
 export default function UserGalary({getType}:{getType: GetTypeGalary}) {
   const [currentImage, setCurrentImage] = useState(0);
@@ -54,6 +55,7 @@ export default function UserGalary({getType}:{getType: GetTypeGalary}) {
             onClose={ closeImageViewer }
             />
         )}
+        <FirstVisit />
         </div>
     )
 }
