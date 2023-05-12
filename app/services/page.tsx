@@ -1,7 +1,6 @@
 import Loading from "../loading";
 import { GetTypeGalary } from "@/typings";
-import UserGalary from "@/components/UserGalary";
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,10 +9,12 @@ export const metadata: Metadata = {
   keywords: "ночной клуб, меню, еда, напитки, живая музыка, VIP, атмосфера, стриптиз, Санкт-Петербург"
 }
 
+const UserGalaryLazy = lazy(()=>import("@/components/UserGalary"))
+
 export default function Services() {
   return (
     <Suspense fallback={<Loading/>}>
-       <UserGalary getType={GetTypeGalary.SERVICES} />
+      <UserGalaryLazy getType={GetTypeGalary.SERVICES} />
     </Suspense>
   )
 }

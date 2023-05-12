@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { VacanciesConfig } from "@/typings";
 import FirstVisit from "../FirstVisit";
 
-const FormVacancy: React.FC = () => {
+export default function FormVacancy() {
     enum InputsName {
         NAME="name",
         PROFESSION="profession",
@@ -78,5 +78,3 @@ const FormVacancy: React.FC = () => {
         </>
     )
 }
-
-export default FormVacancy;
