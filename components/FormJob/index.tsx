@@ -79,8 +79,7 @@ const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
     })
     return (
         <>
-            <div className="col-start-1 col-end-5 grid grid-cols-4 overflow-hidden">
-            <form className="col-start-1 col-end-3 my-56 mx-10 flex flex-col gap-y-5" onSubmit={handleSubmit(onSubmit)}>
+            <form className="h-fit col-start-1 col-end-3 mt-56 mx-10 flex flex-col gap-y-5 max-md:col-end-5 max-md:my-0 max-md:mt-5" onSubmit={handleSubmit(onSubmit)}>
                 <Input
                 register={register(InputsName.PROFESSION)}
                 placeholder={PROFESSION_PLACEHOLDER}
@@ -111,10 +110,9 @@ const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
                 <FileLoader register={register(InputsName.IMAGE)} setValue={setValue} getValues={getValues} />
                 <Button text={UPDATE_BTN_TEXT} style={ButtonStyle.SIMPLE} type="submit" />
             </form>
-            <div className="col-start-1 col-start-3 col-end-5 h-full my-20">
+            <div className="col-start-3 col-end-5 h-[90vh] mt-20 max-md:col-start-1 max-md:col-end-5 max-md:h-fit max-md:my-5 max-md:mx-6">
                 <Galary files={galary} />
             </div>
-        </div>
         </>
     )
 }
