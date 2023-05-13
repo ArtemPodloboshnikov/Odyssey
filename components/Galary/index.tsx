@@ -48,7 +48,7 @@ const Galary: React.FC<GalaryProps> = ({files, paths, deleteImage, slider=false}
     }, [files])
 
     const ImageDiv: React.FC<{src: string, cross?: boolean}> = ({src, cross=false}) => (
-        <div style={{backgroundImage: `url(${src})`}} className="w-full h-3/5 rounded-lg bg-cover w-[280px] h-[400px] max-md:w-[200px]">
+        <div style={{backgroundImage: `url(${src})`}} className="max-lg:justify-self-center h-3/5 rounded-lg bg-cover w-[280px] h-[400px] max-lg:w-[200px]">
            {cross ?
            <svg onClick={deleteImage ? async ()=>{ await deleteImage(src);setCurrent(0);} : undefined} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 cursor-pointer float-right bg-[#ff073a] rounded-bl-lg rounded-tr-lg">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -59,9 +59,9 @@ const Galary: React.FC<GalaryProps> = ({files, paths, deleteImage, slider=false}
     )
 
     return (
-        <div className="w-full grid grid-flow-col gap-10 items-center max-md:gap-0">
+        <div className="w-full grid grid-flow-col gap-10 items-center max-lg:gap-0">
             {slider ?
-            <svg onClick={leftArrow} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 cursor-pointer">
+            <svg onClick={leftArrow} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 cursor-pointer justify-self-end">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
             </svg>
             :

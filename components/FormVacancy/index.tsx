@@ -41,7 +41,7 @@ export default function FormVacancy() {
     })
     return (
         <>
-            <div className="h-5/6 col-start-1 col-end-5 overflow-y-auto scrollbar grid grid-cols-2 justify-items-center pl-10 pr-10 mt-10 gap-5 max-md:grid-cols-1 max-md:col-end-7">
+            <div className="h-5/6 col-start-1 col-end-5 overflow-y-auto scrollbar grid grid-cols-2 justify-items-center pl-10 pr-10 mt-10 gap-5 max-lg:grid-cols-1 max-lg:col-end-7">
                 {vacancies !== null ?
                 Object.keys(vacancies).map(profession => {
                     const chooseVacancy = () => {
@@ -66,7 +66,7 @@ export default function FormVacancy() {
                 }) : null}
             </div>
             <form
-            className="col-start-5 col-end-7 my-56 flex flex-col gap-y-5 pl-14 max-md:before:inset-0 max-md:before:bg-gray-900 max-md:before:opacity-100 max-md:before:bg-clip-padding max-md:before:backdrop-filter max-md:before:backdrop-blur-xl max-md:before:bg-opacity-50 max-md:fixed max-md:left-0 max-md:top-0 max-md:before:w-screen max-md:before:h-screen max-md:before:content-[''] max-md:before:flex max-md:before:fixed max-md:before:left-0 max-md:before:top-0"
+            className="col-start-5 col-end-7 my-56 flex flex-col gap-y-5 pl-14 max-lg:before:inset-0 max-lg:before:bg-gray-900 max-lg:before:opacity-100 max-lg:before:bg-clip-padding max-lg:before:backdrop-filter max-lg:before:backdrop-blur-xl max-lg:before:bg-opacity-50 max-lg:fixed max-lg:px-10 max-lg:place-content-center max-lg:w-screen max-lg:left-0 max-lg:top-0 max-lg:before:w-screen max-lg:before:h-screen max-lg:before:content-[''] max-lg:before:flex max-lg:before:fixed max-lg:before:left-0 max-lg:before:top-0"
             onSubmit={handleSubmit(onSubmit)}
             style={{display: "none"}}
             >
@@ -77,7 +77,7 @@ export default function FormVacancy() {
                 <Textarea placeholder={ABOUT_ME_PLACEHOLDER} register={register(InputsName.DESCRIPTION)}/>
                 <Button text={SEND_BTN_TEXT} type="submit" style={ButtonStyle.CTA}/>
                 <input {...register(InputsName.PROFESSION)} type="hidden" />
-                <div className="relative hidden max-md:grid justify-self-center justify-items-center" onClick={()=>{const form = document.querySelectorAll("form")[0]; form.style.display = "none";}}>
+                <div className="relative hidden max-lg:grid justify-self-center justify-items-center" onClick={()=>{const form = document.querySelectorAll("form")[0]; form.style.display = "none";}}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>

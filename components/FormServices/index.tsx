@@ -86,14 +86,14 @@ const FormServices: React.FC<FormServicesProps&FormServicesAdditionalProps> = ({
     return (
         <>
         <form onSubmit={handleSubmitServices(onSubmitServices)} className="w-full h-fit flex flex-col gap-y-5">
-            <div className="max-md:relative max-md:-left-10">
+            <div className="max-lg:relative max-md:-left-10">
                 <Galary paths={services} files={galaryServices} deleteImage={deleteImage} slider />
             </div>
             <FileLoader register={registerServices(InputsName.SERVICES)} setValue={setValueServices} getValues={getValuesServices} multiple />
             <Button text={UPDATE_BTN_TEXT} type="submit" />
         </form>
         <form onSubmit={handleSubmitMenu(onSubmitMenu)} className="mb-5 w-full h-fit flex flex-col gap-y-5">
-            <div className="max-md:relative max-md:-left-10">
+            <div className="max-lg:relative max-md:-left-10">
                 <Galary paths={menu} files={galaryMenu} deleteImage={deleteImage} slider />
             </div>
             <FileLoader register={registerMenu(InputsName.MENU)} setValue={setValueMenu} getValues={getValuesMenu} multiple />
