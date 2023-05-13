@@ -7,7 +7,6 @@ import { UseFormGetValues, UseFormRegisterReturn, UseFormSetValue } from 'react-
 interface FileLoaderProps {
     register: UseFormRegisterReturn<any>,
     setValue: UseFormSetValue<any>,
-    // setGalary: Dispatch<SetStateAction<{[key: number]: File}>>,
     getValues: UseFormGetValues<any>,
     multiple?: boolean,
     accept?: string,
@@ -41,15 +40,10 @@ const FileLoader:React.FC<FileLoaderProps> = ({register, setValue, getValues, pl
     setValue(register.name, {...files});
   };
 
-//   const changeFiles = (e: ChangeEvent<HTMLInputElement>) => {
-//     let files = !multiple ? e.target.files![0] : e.target.files!;
-//     setValue(register.name, files);
-//     setFile(files);
-//   }
   const file: FileList|File = getValues(register.name);
   return (
     <label
-      className={`w-full h-fit border-dashed border-2 border-gray-400 rounded-lg p-4 cursor-pointer ${dragging ? "bg-gray-100": null}`}
+      className={`relative w-full h-fit border-dashed border-2 border-gray-400 rounded-lg p-4 cursor-pointer ${dragging ? "bg-gray-100": null}`}
       onDragEnter={handleDragEnter}
       onDragOver={handleDragEnter}
       onDragLeave={handleDragLeave}
@@ -61,7 +55,6 @@ const FileLoader:React.FC<FileLoaderProps> = ({register, setValue, getValues, pl
           <div className="text-white">
             {(()=>{
                 let names = [];
-                // console.log(file)
                 const filesArray = Object.values(file);
                 for (let i=0; i < filesArray.length; i++) {
                     names.push(filesArray[i].name);

@@ -177,3 +177,16 @@ input::-webkit-inner-spin-button {
     }
   }
 }
+
+@media not all and (min-width: 768px) {
+  body {
+    grid-template-columns: 75% 25%;
+  }
+  body::before {
+    width: 200%;
+    height: 200vh;
+  }
+  body, html {
+    overflow: hidden;
+  }
+}
