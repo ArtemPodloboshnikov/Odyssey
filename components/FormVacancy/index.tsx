@@ -41,7 +41,7 @@ export default function FormVacancy() {
     })
     return (
         <>
-            <div className="h-5/6 col-start-1 col-end-5 overflow-y-auto scrollbar grid grid-cols-2 justify-items-center pl-10 pr-10 mt-10 gap-5 max-lg:grid-cols-1 max-lg:col-end-7">
+            <div className="h-5/6 col-start-1 col-end-5 overflow-y-auto scrollbar grid grid-cols-2 justify-items-center pl-10 pr-10 mt-10 gap-5 max-lg:grid-cols-1 max-lg:pr-0 max-lg:col-end-7">
                 {vacancies !== null ?
                 Object.keys(vacancies).map(profession => {
                     const chooseVacancy = () => {
