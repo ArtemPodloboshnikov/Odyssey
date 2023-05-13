@@ -19,7 +19,7 @@ const Authorization: React.FC<{setAuth: Dispatch<SetStateAction<any>>}> = ({setA
         setAuth(isAuth);
     }
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="col-start-3 col-end-5 flex flex-col gap-y-5 justify-center content-center">
+        <form onSubmit={handleSubmit(onSubmit)} className="col-start-3 col-end-5 flex flex-col gap-y-5 justify-center content-center max-md:col-start-2 max-md:col-end-6">
             <Input register={register("login")} placeholder={LOGIN_PLACEHOLDER} icon={InputIcons.USER} />
             <Input register={register("password")} placeholder={PASSWORD_PLACEHOLDER} type="password" />
             <Button text={LOGIN_BTN_TEXT} type="submit" style={ButtonStyle.CTA}/>

@@ -18,7 +18,7 @@ const VacancyCard: React.FC<VacancyCardType> = ({imagePath, title, description, 
         >
             <div
             style={{backgroundColor: "rgba(0, 0, 0,.6)"}}
-            className="w-full h-full rounded-[12px] flex flex-col place-items-center place-content-center invisible group-hover:visible max-md:visible max-md:p-3 p-10"
+            className="w-full h-full rounded-[12px] flex flex-col place-items-center place-content-center invisible group-hover:visible max-lg:visible max-md:p-3 p-10"
             >
                 <h1 className="w-40 text-2xl font-semibold text-center">{title}</h1>
                 <div className="grid grid-flow-col justify-between w-full">

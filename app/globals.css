@@ -178,7 +178,7 @@ input::-webkit-inner-spin-button {
   }
 }
 
-@media not all and (min-width: 768px) {
+@media not all and (min-width: 1024px) {
   body {
     grid-template-columns: 75% 25%;
   }

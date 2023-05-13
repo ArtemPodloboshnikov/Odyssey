@@ -58,11 +58,11 @@ export default function Admin() {
             switch(auth) {
                 case true: {
                     return (
-                        <div className="col-start-1 col-end-7 grid grid-cols-6 h-[90vh] max-md:mt-10 max-md:overflow-y-auto scrollbar">
-                            <div className="col-start-1 col-end-5 grid grid-cols-4 h-[90vh] overflow-hidden max-md:h-fit max-md:overflow-visible max-md:col-end-7">
+                        <div className="col-start-1 col-end-7 grid grid-cols-6 h-[90vh] max-lg:mt-10 max-lg:overflow-y-auto scrollbar">
+                            <div className="col-start-1 col-end-5 grid grid-cols-4 h-[90vh] overflow-hidden max-lg:h-fit max-lg:overflow-visible max-lg:col-end-7">
                                 <FormJob setDialog={setDialog} />
                             </div>
-                            <div className="col-start-5 col-end-7 h-[90vh] overflow-y-auto scrollbar my-20 pr-5 flex flex-col gap-y-10 max-md:col-start-1 max-md:ml-10 max-md:mr-6 max-md:my-5 max-md:overflow-visible">
+                            <div className="col-start-5 col-end-7 h-[90vh] overflow-y-auto scrollbar my-20 pr-5 flex flex-col gap-y-10 max-lg:col-start-1 max-lg:ml-10 max-lg:mr-6 max-lg:my-5 max-lg:overflow-visible">
                                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-5">
                                     <Input register={register("login")} placeholder={LOGIN_PLACEHOLDER} icon={InputIcons.USER} />
                                     <Input register={register("password")} placeholder={PASSWORD_PLACEHOLDER} type="password" />
