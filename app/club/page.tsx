@@ -16,7 +16,10 @@ export const metadata: Metadata = {
     openGraph: {
         title: title,
         description: descriptionArray[0] + descriptionArray[1],
-        url: `https://odyssey-ten.vercel.app${CLUB_LINK.href}`
+        url: `https://odyssey-ten.vercel.app${CLUB_LINK.href}`,
+        images: [{
+            url: "https://sun9-49.userapi.com/impg/4DF8ptGsL3oYmwefeG_EuO_lUmdUfi5-5pgT9g/XG3WFF8y3BI.jpg?size=964x726&quality=95&sign=b875187532284bf1c35abcf6125a477d&type=album"
+        }]
     }
 }
 
