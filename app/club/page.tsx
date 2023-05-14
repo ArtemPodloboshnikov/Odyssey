@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         description: descriptionArray[0] + descriptionArray[1],
         url: `https://odyssey-ten.vercel.app${CLUB_LINK.href}`,
         images: [{
-            url: "https://sun9-49.userapi.com/impg/4DF8ptGsL3oYmwefeG_EuO_lUmdUfi5-5pgT9g/XG3WFF8y3BI.jpg?size=964x726&quality=95&sign=b875187532284bf1c35abcf6125a477d&type=album"
+            url: "https://sun9-67.userapi.com/impg/teYxq7oS6JPLIVDgPuVAQm6RtVJh4NfI2tdiuw/SDJK0AbAfrM.jpg?size=828x563&quality=95&sign=a8dc33b692288e47f00e7aba77293294&type=album"
         }]
     }
 }
