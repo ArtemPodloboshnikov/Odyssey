@@ -19,3 +19,6 @@ export const LOGIN_BTN_TEXT = "Войти";
 export const TITLE_FIRST_VISIT = "Вам есть 18 лет?";
 export const ERROR_FIO_MESSAGE = "Введите ФИО полностью";
 export const ERORR_PHONE_MESSAGE = "Телефон не соответствует формату";
+export const ERROR_SALARY_MESSAGE = "Зарплата сотрудника не может быть меньше или равна 0";
+export const ERROR_LOGIN_MESSAGE = "Вы не ввели логин";
+export const ERROR_PASSWORD_MESSAGE = "Вы не ввели пароль";
