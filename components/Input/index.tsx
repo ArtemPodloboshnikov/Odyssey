@@ -16,6 +16,8 @@ interface InputProps {
     placeholder: string,
     type?: string,
     icon?: string,
+    min?: number,
+    max?: number,
     options?: string[],
     register: UseFormRegisterReturn<any>,
     setValue?: UseFormSetValue<any>,
@@ -35,7 +37,7 @@ const typeIcons: {[key: string]: ReactNode} = {
     [InputIcons.EYE]: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
 }
 
-const Input: React.FC<InputProps> = ({placeholder, textHelper, icon, register, setValue, defaultValue, errors, options=[], type="text"}) => {
+const Input: React.FC<InputProps> = ({placeholder, textHelper, icon, register, setValue, defaultValue, errors, min, max, options=[], type="text"}) => {
     const [showOptions, setShowOptions] = useState<boolean>(false);
     const [passwordIcon, setPasswordIcon] = useState<ReactNode>(typeIcons["password"]);
     const isSelect = type === "select";
@@ -65,7 +67,8 @@ const Input: React.FC<InputProps> = ({placeholder, textHelper, icon, register, s
             className="w-full h-10 pl-3 pr-8 text-base placeholder-gray-600 border rounded-lg outline-none"
             type={isSelect ? "text" : (isPassword && passwordIcon === typeIcons[InputIcons.EYE] ? "text" : type)}
             placeholder={placeholder}
-            min={0}
+            min={min||0}
+            max={max}
             {...register}
             onBlur={isSelect ? ()=>focusShow(false) : undefined}
             onFocus={isSelect ? ()=>focusShow(true) : undefined}

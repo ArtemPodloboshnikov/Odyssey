@@ -12,7 +12,7 @@ import FormServices, { FormServicesProps } from "@/components/FormServices";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AuthorizationData } from "@/typings";
 import Input, { InputIcons } from "@/components/Input";
-import { LOGIN_PLACEHOLDER, PASSWORD_PLACEHOLDER, UPDATE_BTN_TEXT } from "@/constants/placeholders";
+import { ERROR_LOGIN_MESSAGE, ERROR_PASSWORD_MESSAGE, LOGIN_PLACEHOLDER, PASSWORD_PLACEHOLDER, UPDATE_BTN_TEXT } from "@/constants/placeholders";
 import Button from "@/components/Button";
 import { putAuthorization } from "@/lib/putAuthorization";
 import DialogWindow from "@/components/DialogWindow";
@@ -25,7 +25,7 @@ export default function Admin() {
     const dataDefault: FormServicesProps = {menu: [], services: []};
     const [data, setData] = useState<FormServicesProps>(dataDefault);
 
-    const {register, handleSubmit} = useForm<AuthorizationData>()
+    const {register, handleSubmit, formState: {errors}} = useForm<AuthorizationData>()
 
     const onSubmit: SubmitHandler<AuthorizationData> = async (data) => {
         const code = await putAuthorization(data);
@@ -64,8 +64,8 @@ export default function Admin() {
                             </div>
                             <div className="col-start-5 col-end-7 h-[90vh] overflow-y-auto scrollbar my-20 pr-5 flex flex-col gap-y-10 max-lg:col-start-1 max-lg:ml-10 max-lg:mr-6 max-lg:my-5 max-lg:overflow-visible">
                                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-5">
-                                    <Input register={register("login")} placeholder={LOGIN_PLACEHOLDER} icon={InputIcons.USER} />
-                                    <Input register={register("password")} placeholder={PASSWORD_PLACEHOLDER} type="password" />
+                                    <Input register={register("login", {required: true})} errors={errors} textHelper={ERROR_LOGIN_MESSAGE} placeholder={LOGIN_PLACEHOLDER} icon={InputIcons.USER} />
+                                    <Input register={register("password", {required: true})} errors={errors} textHelper={ERROR_PASSWORD_MESSAGE} placeholder={PASSWORD_PLACEHOLDER} type="password" />
                                     <Button text={UPDATE_BTN_TEXT} type="submit"/>
                                 </form>
                                 <FormServices menu={data.menu} services={data.services} setData={setData} setDialog={setDialog} />
