@@ -10,8 +10,9 @@ import VacancyCard from "@/components/VacancyCard";
 import { useEffect, useState } from "react";
 import { VacanciesConfig } from "@/typings";
 import FirstVisit from "../FirstVisit";
+import { validateName, validatePhone } from "@/lib/validateFields";
 
-export default function FormVacancy() {
+export default function FormVacancy({id}:{id: string}) {
     enum InputsName {
         NAME="name",
         PROFESSION="profession",
@@ -41,6 +42,7 @@ export default function FormVacancy() {
     })
     return (
         <>
+            <div className="col-start-1 col-end-7 relative -mt-[100px]" id={id}></div>
             <div className="h-5/6 col-start-1 col-end-5 overflow-y-auto scrollbar grid grid-cols-2 justify-items-center pl-10 pr-10 mt-10 gap-5 max-lg:grid-cols-1 max-lg:pr-0 max-lg:col-end-7">
                 {vacancies !== null ?
                 Object.keys(vacancies).map(profession => {
@@ -66,13 +68,13 @@ export default function FormVacancy() {
                 }) : null}
             </div>
             <form
-            className="col-start-5 col-end-7 my-56 flex flex-col gap-y-5 pl-14 max-lg:before:inset-0 max-lg:before:bg-gray-900 max-lg:before:opacity-100 max-lg:before:bg-clip-padding max-lg:before:backdrop-filter max-lg:before:backdrop-blur-xl max-lg:before:bg-opacity-50 max-lg:fixed max-lg:px-10 max-lg:place-content-center max-lg:w-screen max-lg:left-0 max-lg:top-0 max-lg:before:w-screen max-lg:before:h-screen max-lg:before:content-[''] max-lg:before:flex max-lg:before:fixed max-lg:before:left-0 max-lg:before:top-0"
+            className="col-start-5 col-end-7 my-56 flex flex-col gap-y-5 px-14 max-lg:before:inset-0 max-lg:before:bg-gray-900 max-lg:before:opacity-100 max-lg:before:bg-clip-padding max-lg:before:backdrop-filter max-lg:before:backdrop-blur-xl max-lg:before:bg-opacity-50 max-lg:fixed max-lg:px-10 max-lg:place-content-center max-lg:w-screen max-lg:left-0 max-lg:top-0 max-lg:before:w-screen max-lg:before:h-screen max-lg:before:content-[''] max-lg:before:flex max-lg:before:fixed max-lg:before:left-0 max-lg:before:top-0"
             onSubmit={handleSubmit(onSubmit)}
             style={{display: "none"}}
             >
                 <h1 className="relative">{PROFESSION_PLACEHOLDER}</h1>
-                <Input placeholder={USER_NAME_PLACEHOLDER} icon={InputIcons.USER} errors={errors} textHelper={ERROR_FIO_MESSAGE} register={register(InputsName.NAME, {required: true, validate: (value)=>value.split(" ").length === 3})}/>
-                <Input placeholder={PHONE_PLACEHOLDER} type="tel" errors={errors} textHelper={ERORR_PHONE_MESSAGE} register={register(InputsName.PHONE, {required: true, pattern: /((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}/})}/>
+                <Input placeholder={USER_NAME_PLACEHOLDER} icon={InputIcons.USER} errors={errors} textHelper={ERROR_FIO_MESSAGE} register={register(InputsName.NAME, {required: true, validate: (value)=>validateName(value)})}/>
+                <Input placeholder={PHONE_PLACEHOLDER} type="tel" errors={errors} textHelper={ERORR_PHONE_MESSAGE} register={register(InputsName.PHONE, {required: true, validate: (value)=>validatePhone(value)})}/>
                 <Input placeholder={RESUME_LINK_PLACEHOLDER} type="url" register={register(InputsName.URL)}/>
                 <Textarea placeholder={ABOUT_ME_PLACEHOLDER} register={register(InputsName.DESCRIPTION)}/>
                 <Button text={SEND_BTN_TEXT} type="submit" style={ButtonStyle.CTA}/>

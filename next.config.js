@@ -2,15 +2,6 @@
 const nextConfig = {
   experimental: {
     appDir: true,
-  },
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/club',
-        permanent: false
-      }
-    ]
   }
 }
 

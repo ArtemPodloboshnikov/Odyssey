@@ -33,7 +33,9 @@ export type AuthorizationData = {
     password: string
 }
 
-export enum GetTypeGalary {
+export enum SectionGalaryTypes {
     MENU="menu",
-    SERVICES="services"
+    SERVICES="services",
+    INTERIOR="interior",
+    GIRLS="girls"
 }

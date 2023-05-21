@@ -64,7 +64,7 @@ const Input: React.FC<InputProps> = ({placeholder, textHelper, icon, register, s
     return (
         <div className="relative text-gray-700">
             <input
-            className="w-full h-10 pl-3 pr-8 text-base placeholder-gray-600 border rounded-lg outline-none"
+            className="w-full h-10 pl-3 pr-8 text-base text-black font-medium placeholder:placeholder-gray-600 border rounded-lg outline-none"
             type={isSelect ? "text" : (isPassword && passwordIcon === typeIcons[InputIcons.EYE] ? "text" : type)}
             placeholder={placeholder}
             min={min||0}

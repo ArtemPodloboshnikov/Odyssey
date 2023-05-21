@@ -1,6 +1,8 @@
-import Sidebar from '@/components/Sidebar'
 import { Metadata } from 'next';
 import './globals.css'
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import { Piazzolla } from 'next/font/google';
 
 export const revalidate = 60;
 
@@ -25,18 +27,29 @@ export const metadata: Metadata = {
   }
 }
 
+const piazzolla = Piazzolla({
+  subsets: ['cyrillic'],
+  preload: true,
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  display: "swap"
+});
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>
-        <main className="grid grid-cols-6 h-screen">
+    <html lang="ru" className={piazzolla.className}>
+      <head>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+      </head>
+      <body className="scrollbar">
+        <Header/>
+        <main className="grid grid-cols-6 h-auto">
           {children}
         </main>
-        <Sidebar/>
+        <Footer/>
       </body>
     </html>
   )

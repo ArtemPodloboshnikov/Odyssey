@@ -2,12 +2,11 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { getMenu } from "@/lib/getMenu";
-import { getServices } from "@/lib/getServices";
-import { GetTypeGalary } from "@/typings";
+import { SectionGalaryTypes } from "@/typings";
 import FirstVisit from "../FirstVisit";
+import { getFilesPaths } from "@/lib/getFilesPaths";
 
-export default function UserGalary({getType}:{getType: GetTypeGalary}) {
+export default function UserGalary({section}:{section: SectionGalaryTypes}) {
   const [currentImage, setCurrentImage] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [images, setImages] = useState<string[]>([]);
@@ -23,8 +22,7 @@ export default function UserGalary({getType}:{getType: GetTypeGalary}) {
 
   useEffect(()=> {
     const getData = async () => {
-        const get = getType === GetTypeGalary.MENU ? getMenu() : getServices();
-        const data = await get;
+        const data = await getFilesPaths(section);
         setImages(data);
     }
     if (!images.length)
@@ -34,11 +32,15 @@ export default function UserGalary({getType}:{getType: GetTypeGalary}) {
   const leftArrow = () => {
     if (currentImage > 0)
       setCurrentImage(current=>current-1)
+    else
+      setCurrentImage(images.length-1)
   }
 
   const rightArrow = () => {
     if (currentImage < images.length-1)
       setCurrentImage(current=>current+1)
+    else
+      setCurrentImage(0)
   }
 
     return (
