@@ -11,7 +11,7 @@ export default function Home() {
     <>
     <div className="col-start-1 col-end-7 h-screen overflow-hidden before:content-[''] before:z-20 before:bg-black before:left-0 before:top-0 before:absolute before:w-screen before:min-h-screen before:bg-opacity-70">
       <h1 className="absolute z-20 mt-[30%] ml-[50%] translate-x-[-50%] translate-y-[-50%] text-5xl w-[900px] leading-relaxed neon_text max-lg:text-2xl max-lg:w-[390px] max-lg:mt-[90%] max-lg:text-center">Почувствовать себя в качестве героя собственного приключения в «Odyssey»</h1>
-      <video autoPlay loop muted className="relative top-0 left-0 min-w-full min-h-full w-auto h-auto max-w-none">
+      <video autoPlay loop muted className="relative top-0 left-0 min-w-full min-h-full w-auto h-auto max-w-none max-lg:left-[-600px]">
             <source src={`/video/striptease_dance.mp4`} type="video/mp4"></source>
       </video>
     </div>

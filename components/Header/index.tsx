@@ -45,12 +45,15 @@ const Header: React.FC = () => {
         let fixedTop: number = stickyHeader !== null ? stickyHeader.current!.offsetTop : 0;
         const stickyClasses = ["bg-clip-padding", "backdrop-filter", "backdrop-blur-xl", "bg-opacity-50", "pb-[2%]", "shadow-[0_35px_60px_-15px_rgba(0,0,0,0.5)]"];
         const stickyHeaderEvent = () => {
-            if (window.pageYOffset > fixedTop) {
-                header.classList.add(...stickyClasses);
-            } else {
-                header.classList.remove(...stickyClasses);
+            if (window !== undefined) {
+                if (window.pageYOffset > fixedTop) {
+                    header.classList.add(...stickyClasses);
+                } else {
+                    header.classList.remove(...stickyClasses);
+                }
             }
         };
+        if (window !== undefined)
         window.addEventListener("scroll", stickyHeaderEvent);
     }, []);
 
