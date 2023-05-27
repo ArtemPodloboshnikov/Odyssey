@@ -18,7 +18,15 @@ export type VacanciesConfig = {
         count: number,
         salary: number,
         description: string,
-        imagePath: string,
+        imagePath: string
+    }
+};
+
+export type StocksConfig = {
+    [stock: string]: {
+        time: string,
+        description: string,
+        imagePath: string
     }
 };
 
@@ -38,4 +46,9 @@ export enum SectionGalaryTypes {
     SERVICES="services",
     INTERIOR="interior",
     GIRLS="girls"
+}
+
+export enum SectionJsonTypes {
+    VACANCIES="vacancies",
+    STOCKS="stocks"
 }

@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { SectionGalaryTypes } from "@/typings";
-import FirstVisit from "../FirstVisit";
 import { getFilesPaths } from "@/lib/getFilesPaths";
 
 export default function UserGalary({section}:{section: SectionGalaryTypes}) {
@@ -20,15 +19,6 @@ export default function UserGalary({section}:{section: SectionGalaryTypes}) {
     setIsViewerOpen(false);
   };
 
-  useEffect(()=> {
-    const getData = async () => {
-        const data = await getFilesPaths(section);
-        setImages(data);
-    }
-    if (!images.length)
-        getData()
-  })
-
   const leftArrow = () => {
     if (currentImage > 0)
       setCurrentImage(current=>current-1)
@@ -42,6 +32,21 @@ export default function UserGalary({section}:{section: SectionGalaryTypes}) {
     else
       setCurrentImage(0)
   }
+
+  useEffect(()=> {
+    const body = document.getElementsByTagName("body")[0];
+    const getData = async () => {
+        const data = await getFilesPaths(section);
+        setImages(data);
+    }
+    if (!images.length)
+        getData()
+    if (isViewerOpen) {
+      body.style.overflowY = "hidden";
+    } else {
+      body.style.overflowY = "auto";
+    }
+  }, [isViewerOpen])
 
     return (
         <div className="col-start-2 col-end-6 my-6 grid grid-cols-2 auto-rows-max items-center justify-items-center gap-10 overflow-y-auto scrollbar max-lg:grid-cols-1 max-lg:col-end-7">
@@ -59,8 +64,8 @@ export default function UserGalary({section}:{section: SectionGalaryTypes}) {
 
         {isViewerOpen && (
           <>
-            <div className="fixed grid grid-cols-[10%_80%_10%] left-0 top-0 w-screen h-screen z-50 before:inset-0 before:bg-gray-900 before:opacity-100 before:bg-clip-padding before:backdrop-filter before:backdrop-blur-xl before:bg-opacity-50 before:w-screen before:h-screen before:content-[''] before:flex before:fixed before:left-0 before:top-0">
-              <div style={{backgroundImage: `url(${images[currentImage]})`, backgroundRepeat: "no-repeat", backgroundSize: "contain"}} className="absolute left-[50%] -translate-x-[18%] top-0 max-lg:left-0 max-lg:translate-x-0 w-screen h-screen" />
+            <div className="fixed grid grid-cols-[10%_80%_10%] left-0 top-0 w-screen h-screen z-[1001] before:inset-0 before:bg-gray-900 before:opacity-100 before:bg-clip-padding before:backdrop-filter before:backdrop-blur-xl before:bg-opacity-50 before:w-screen before:h-screen before:content-[''] before:flex before:fixed before:left-0 before:top-0">
+              <div style={{backgroundImage: `url(${images[currentImage]})`, backgroundRepeat: "no-repeat", backgroundSize: "contain"}} className="absolute bg-center max-lg:bg-top w-full h-full" />
               <div className="relative place-self-center max-lg:self-end mb-10 left-2 z-10 cursor-pointer" onClick={leftArrow}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -81,7 +86,6 @@ export default function UserGalary({section}:{section: SectionGalaryTypes}) {
             </div>
           </>
         )}
-        <FirstVisit />
         </div>
     )
 }

@@ -2,20 +2,19 @@
 
 import FormJob from "@/components/FormJob";
 import { useEffect, useRef, useState } from "react";
-import { getServices } from "@/lib/getServices";
-import { getMenu } from "@/lib/getMenu";
 import { getCookie } from "@/lib/getCookie";
 import { AUTHORIZATION_COOKIE_NAME } from "@/constants/cookies";
 import Authorization from "@/components/Authorization";
 import Loading from "../loading";
 import FormServices, { FormServicesProps } from "@/components/FormServices";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { AuthorizationData } from "@/typings";
+import { AuthorizationData, SectionGalaryTypes } from "@/typings";
 import Input, { InputIcons } from "@/components/Input";
 import { ERROR_LOGIN_MESSAGE, ERROR_PASSWORD_MESSAGE, LOGIN_PLACEHOLDER, PASSWORD_PLACEHOLDER, UPDATE_BTN_TEXT } from "@/constants/placeholders";
 import Button from "@/components/Button";
 import { putAuthorization } from "@/lib/putAuthorization";
 import DialogWindow from "@/components/DialogWindow";
+import { getFilesPaths } from "@/lib/getFilesPaths";
 
 export default function Admin() {
     const [auth, setAuth] = useState<boolean|undefined>(undefined);
@@ -34,8 +33,8 @@ export default function Admin() {
 
     useEffect(()=> {
         const getData = async () => {
-            const services = await getServices();
-            const menu = await getMenu();
+            const services = await getFilesPaths(SectionGalaryTypes.SERVICES);
+            const menu = await getFilesPaths(SectionGalaryTypes.MENU);
             setData({
                 services: services,
                 menu: menu
@@ -58,7 +57,7 @@ export default function Admin() {
             switch(auth) {
                 case true: {
                     return (
-                        <div className="col-start-1 col-end-7 grid grid-cols-6 h-[90vh] max-lg:mt-10 max-lg:overflow-y-auto scrollbar">
+                        <div className="col-start-1 col-end-7 grid grid-cols-6 h-[90vh] max-lg:mt-10 max-lg:overflow-y-auto scrollbar pr-10 h-screen">
                             <div className="col-start-1 col-end-5 grid grid-cols-4 h-[90vh] overflow-hidden max-lg:h-fit max-lg:overflow-visible max-lg:col-end-7">
                                 <FormJob setDialog={setDialog} />
                             </div>

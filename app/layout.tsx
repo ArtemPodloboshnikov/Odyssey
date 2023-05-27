@@ -43,6 +43,7 @@ export default function RootLayout({
     <html lang="ru" className={piazzolla.className}>
       <head>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+        <link rel="icon" href="/images/logo.jpg"/>
       </head>
       <body className="scrollbar">
         <Header/>

@@ -7,6 +7,23 @@ export const config = {
     }
 }
 
+export async function GET(request: Request) {
+    const url = new URL(request.url);
+    const category = url.searchParams.get("category");
+    const folderPath =  `/images/${category}/`;
+    const folder = path.join(process.cwd(), `public${folderPath}`);
+    const filesName: string[] = [];
+    try {
+      const files = await fs.readdir(folder);
+      for (const file of files)
+          filesName.push(`${folderPath}${file}`)
+    } catch (err) {
+      console.error(err);
+    }
+
+    return new Response(JSON.stringify(filesName))
+}
+
 export async function POST(request: Request) {
     const url = new URL(request.url);
     const category = url.searchParams.get("category");

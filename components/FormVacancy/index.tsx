@@ -5,14 +5,13 @@ import Input, { InputIcons } from "@/components/Input";
 import Textarea from "@/components/Textarea";
 import { ABOUT_ME_PLACEHOLDER, PHONE_PLACEHOLDER, RESUME_LINK_PLACEHOLDER, SEND_BTN_TEXT, USER_NAME_PLACEHOLDER, PROFESSION_PLACEHOLDER, ERORR_PHONE_MESSAGE, ERROR_FIO_MESSAGE } from "@/constants/placeholders";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { getVacancies } from "@/lib/getVacancies";
+import { getJSON } from "@/lib/getJSON";
 import VacancyCard from "@/components/VacancyCard";
 import { useEffect, useState } from "react";
-import { VacanciesConfig } from "@/typings";
-import FirstVisit from "../FirstVisit";
+import { SectionJsonTypes, VacanciesConfig } from "@/typings";
 import { validateName, validatePhone } from "@/lib/validateFields";
 
-export default function FormVacancy({id}:{id: string}) {
+export default function FormVacancy({id, title}:{id: string, title: string}) {
     enum InputsName {
         NAME="name",
         PROFESSION="profession",
@@ -34,41 +33,54 @@ export default function FormVacancy({id}:{id: string}) {
 
     useEffect(()=>{
         const getData = async () => {
-            setVacancies(await getVacancies());
+            setVacancies(await getJSON(SectionJsonTypes.VACANCIES));
         }
 
         if (!Object.keys(vacancies).length)
             getData()
     })
+
+    const crossClick = ()=>{
+        const form = document.querySelectorAll("form")[0];
+        const body = document.getElementsByTagName("body")[0];
+        form.style.display = "none";
+        body.style.overflowY = "auto";
+    }
     return (
         <>
             <div className="col-start-1 col-end-7 relative -mt-[100px]" id={id}></div>
-            <div className="h-5/6 col-start-1 col-end-5 overflow-y-auto scrollbar grid grid-cols-2 justify-items-center pl-10 pr-10 mt-10 gap-5 max-lg:grid-cols-1 max-lg:pr-0 max-lg:col-end-7">
-                {vacancies !== null ?
-                Object.keys(vacancies).map(profession => {
-                    const chooseVacancy = () => {
-                        const form = document.querySelectorAll("form")[0];
-                        const formTitle = form.children[0];
-                        formTitle.innerHTML = `${PROFESSION_PLACEHOLDER}: ${profession}`;
-                        setValue(InputsName.PROFESSION, profession);
-                        if (form.style.display === "none")
-                            form.style.display = "flex";
-                    }
-                    return (
-                        <VacancyCard
-                        key={profession}
-                        title={profession}
-                        salary={vacancies[profession].salary}
-                        count={vacancies[profession].count}
-                        description={vacancies[profession].description}
-                        imagePath={vacancies[profession].imagePath}
-                        click={chooseVacancy}
-                        />
-                    )
-                }) : null}
+            <div className="col-start-1 col-end-7 mt-10">
+                <h1 className="text-4xl font-extrabold pl-10">{title.toUpperCase()}</h1>
+                <div className="px-10 grid grid-cols-3 justify-items-center scrollbar mt-5 gap-5 max-lg:grid-cols-1">
+                    {vacancies !== null ?
+                    Object.keys(vacancies).map(profession => {
+                        const chooseVacancy = () => {
+                            const form = document.querySelectorAll("form")[0];
+                            const body = document.getElementsByTagName("body")[0];
+                            const formTitle = form.children[0];
+                            formTitle.innerHTML = `${PROFESSION_PLACEHOLDER}: ${profession}`;
+                            setValue(InputsName.PROFESSION, profession);
+                            if (form.style.display === "none") {
+                                form.style.display = "flex";
+                                body.style.overflowY = "hidden";
+                            }
+                        }
+                        return (
+                            <VacancyCard
+                            key={profession}
+                            title={profession}
+                            salary={vacancies[profession].salary}
+                            count={vacancies[profession].count}
+                            description={vacancies[profession].description}
+                            imagePath={vacancies[profession].imagePath}
+                            click={chooseVacancy}
+                            />
+                        )
+                    }) : null}
+                </div>
             </div>
             <form
-            className="col-start-5 col-end-7 my-56 flex flex-col gap-y-5 px-14 max-lg:before:inset-0 max-lg:before:bg-gray-900 max-lg:before:opacity-100 max-lg:before:bg-clip-padding max-lg:before:backdrop-filter max-lg:before:backdrop-blur-xl max-lg:before:bg-opacity-50 max-lg:fixed max-lg:px-10 max-lg:place-content-center max-lg:w-screen max-lg:left-0 max-lg:top-0 max-lg:before:w-screen max-lg:before:h-screen max-lg:before:content-[''] max-lg:before:flex max-lg:before:fixed max-lg:before:left-0 max-lg:before:top-0"
+            className="my-56 flex flex-col gap-y-5 px-[35%] before:inset-0 before:bg-gray-900 before:opacity-100 before:bg-clip-padding before:backdrop-filter before:backdrop-blur-xl before:bg-opacity-50 fixed max-lg:px-10 place-content-center w-screen left-0 top-0 before:w-screen before:h-screen before:content-[''] before:flex before:fixed before:left-0 before:top-0 z-[1001]"
             onSubmit={handleSubmit(onSubmit)}
             style={{display: "none"}}
             >
@@ -79,13 +91,12 @@ export default function FormVacancy({id}:{id: string}) {
                 <Textarea placeholder={ABOUT_ME_PLACEHOLDER} register={register(InputsName.DESCRIPTION)}/>
                 <Button text={SEND_BTN_TEXT} type="submit" style={ButtonStyle.CTA}/>
                 <input {...register(InputsName.PROFESSION)} type="hidden" />
-                <div className="relative hidden max-lg:grid justify-self-center justify-items-center" onClick={()=>{const form = document.querySelectorAll("form")[0]; form.style.display = "none";}}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <div className="relative grid justify-self-center justify-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" onClick={crossClick} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 cursor-pointer max-lg:w-6 max-lg:h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
                 </div>
             </form>
-            <FirstVisit />
         </>
     )
 }

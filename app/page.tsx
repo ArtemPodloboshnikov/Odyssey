@@ -1,6 +1,7 @@
 import Features from "@/components/Features";
 import FormVacancy from "@/components/FormVacancy";
 import SectionGalary from "@/components/SectionGalary";
+import Stocks from "@/components/Stocks";
 import Taxi from "@/components/Taxi";
 import { GIRLS_LINK, INTERIOR_LINK, MENU_LINK, SERVICES_LINK, VACANCIES_LINK } from "@/constants/links";
 import { SectionGalaryTypes } from "@/typings";
@@ -9,11 +10,12 @@ export default function Home() {
   return (
     <>
     <div className="col-start-1 col-end-7 h-screen overflow-hidden before:content-[''] before:z-20 before:bg-black before:left-0 before:top-0 before:absolute before:w-screen before:min-h-screen before:bg-opacity-70">
-      <h1 className="absolute z-20 mt-[30%] ml-[50%] translate-x-[-50%] translate-y-[-50%] text-5xl w-[900px] leading-relaxed neon_text">Почувствовать себя в качестве героя собственного приключения в «Odyssey»</h1>
+      <h1 className="absolute z-20 mt-[30%] ml-[50%] translate-x-[-50%] translate-y-[-50%] text-5xl w-[900px] leading-relaxed neon_text max-lg:text-2xl max-lg:w-[390px] max-lg:mt-[90%] max-lg:text-center">Почувствовать себя в качестве героя собственного приключения в «Odyssey»</h1>
       <video autoPlay loop muted className="relative top-0 left-0 min-w-full min-h-full w-auto h-auto max-w-none">
             <source src={`/video/striptease_dance.mp4`} type="video/mp4"></source>
       </video>
     </div>
+    <Stocks/>
     <SectionGalary
     id={INTERIOR_LINK.href}
     title={INTERIOR_LINK.text}
@@ -38,7 +40,7 @@ export default function Home() {
     title={SERVICES_LINK.text}
     section={SectionGalaryTypes.SERVICES}
     />
-    <FormVacancy id={VACANCIES_LINK.href} />
+    <FormVacancy id={VACANCIES_LINK.href} title={VACANCIES_LINK.text} />
     <Taxi />
     </>
   )
