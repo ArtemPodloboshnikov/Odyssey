@@ -6,11 +6,11 @@ import Galary from "@/components/Galary";
 import Input, { InputIcons } from "@/components/Input";
 import Textarea from "@/components/Textarea";
 import { COUNT_PLACEHOLDER, ERROR_SALARY_MESSAGE, PROFESSION_PLACEHOLDER, SALARY_PLACEHOLDER, UPDATE_BTN_TEXT, VACANCY_PLACEHOLDER } from "@/constants/placeholders";
-import { getVacancies } from "@/lib/getVacancies";
+import { getJSON } from "@/lib/getJSON";
 import { postVacancies } from "@/lib/postVacancies";
 import { putVacancies } from "@/lib/putVacancies";
 import { uploadFiles } from "@/lib/uploadFiles";
-import { FormCategory, VacanciesConfig } from "@/typings";
+import { FormCategory, SectionJsonTypes, VacanciesConfig } from "@/typings";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 
@@ -71,7 +71,7 @@ const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
 
     useEffect(()=>{
         const getData = async () => {
-            setData(await getVacancies());
+            setData(await getJSON(SectionJsonTypes.VACANCIES));
         }
 
         if (Object.keys(data).length === 0)

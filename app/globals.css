@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --red: #ff073a;
+  --black-red: #c60c31;
+  --yellow: #E0E722;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,25 +17,19 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-  )
-  rgb(var(--background-start-rgb));
-  display: grid;
-  grid-template-columns: 85% 15%;
+  color: #fff;
+  overflow-x: hidden;
   position: relative;
-  background-color:hsla(0,100%,50%,1);
-  background-image:
+  /* background-color:hsla(0,100%,50%,1); */
+  /* background: #fe2a41; */
+  /* background-image:
 radial-gradient(at 40% 20%, hsla(28,100%,74%,1) 0px, transparent 50%),
 radial-gradient(at 80% 0%, rgb(255, 31, 199) 0px, transparent 50%),
 radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%),
 radial-gradient(at 80% 50%, hsla(340,100%,76%,1) 0px, transparent 50%),
 radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0px, transparent 50%),
 radial-gradient(at 80% 100%, hsla(242,100%,70%,1) 0px, transparent 50%),
-radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%);
+radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%); */
   /* background: #150813; */
   /* background: linear-gradient(22deg, #e70f5e, #b35ac3, #148ae3);
 
@@ -43,6 +37,12 @@ radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%);
   -webkit-animation: bg 30s ease infinite;
   -moz-animation: bg 30s ease infinite;*/
   background-size: 210% 210%;
+  background-color: #e70d0d;
+  background-image: radial-gradient(at 94% 40%, hsla(167, 90%, 55%, 1) 0, hsla(167, 90%, 55%, 0) 50%),
+  radial-gradient(at 44% 28%, hsla(235, 93%, 57%, 1) 0, hsla(235, 93%, 57%, 0) 50%),
+  radial-gradient(at 35% 6%, hsla(293, 91%, 53%, 1) 0, hsla(293, 91%, 53%, 0) 50%),
+  radial-gradient(at 83% 77%, hsla(281, 91%, 57%, 1) 0, hsla(281, 91%, 57%, 0) 50%),
+  radial-gradient(at 99% 50%, hsla(186, 92%, 52%, 1) 0, hsla(186, 92%, 52%, 0) 50%);
   animation: bg 15s ease infinite;
 }
 
@@ -51,10 +51,10 @@ body::before {
   z-index: -1;
   position: absolute;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   left: 0;
   top: 0;
-  background: rgba(0, 0, 0,.8);
+  background: rgba(0, 0, 0,.6);
   /* backdrop-filter: blur(0px); */
 }
 
@@ -127,6 +127,141 @@ input::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
+div[class="leaflet-bottom leaflet-right"] {
+  display: none;
+}
+
+.neon_text {
+  animation: neonText 1s alternate-reverse infinite;
+  color: #ff073a;
+}
+
+@keyframes neonText {
+  from {
+    text-shadow:
+      0 0 15px rgba(255, 7, 58, .7),
+      0 0 45px rgba(255, 7, 58, .7),
+      0 0 105px rgba(255, 7, 58, .7);
+  }
+  to {
+    text-shadow:
+      0 0 10px rgba(255, 7, 58, .7),
+      0 0 25px rgba(255, 7, 58, .7),
+      0 0 65px rgba(255, 7, 58, .7);
+  }
+}
+
+.neon_card{
+  background: #d0f0dd;
+  box-shadow: 0px 0px 0 #40ff22,
+    0px 0px 4px #30ff1f,
+    0px 0px 8px #20ff1b,
+    0px 0px 16px #10ff18;
+  border-radius: 4px;
+  position: absolute;
+}
+.neon_left{
+  width: 4px;
+  animation: left 2.03s linear infinite;
+}
+@keyframes left{
+  0%  {height: 0; top: 100%; left: 0;}
+  20% {height: 100px; top: 0; left: 0;}
+  40% {height: 0; top: 0; left: 0;}
+}
+.neon_top{
+  height: 4px;
+  animation: top 2s linear infinite;
+}
+@keyframes top{
+  0%  {width: 0; top: 0; left: 0;}
+  20% {width: 0; top: 0; left: 0;}
+  40% {width: 100px; top: 0; left: 0;}
+  60% {width: 0; top:0; left: 100%;}
+}
+.neon_right{
+  width: 4px;
+  animation: right 2s linear infinite;
+}
+@keyframes right{
+  0%  {height: 0; top: 0; left: 100%;}
+  40% {height: 0; top: 0; left: 100%;}
+  60% {height: 100px; top: 0; left: 100%;}
+  80% {height: 0; top: 100%; left: 100%;}
+}
+.neon_bottom{
+  height: 4px;
+  animation: bottom 2.1s linear infinite;
+}
+@keyframes bottom{
+  0%  {width: 0; top: 100%; left: 100%;}
+  60% {width: 0; top: 100%; left: 100%;}
+  80% {width: 100px; top:100%; left: 0;}
+  100% {width: 0; top:100%; left: 0;}
+}
+.copy-box
+{
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+  padding: 20px;
+}
+.copy-box .line
+{
+  position: absolute;
+  background-color: aqua;
+  box-shadow: 0px 0px 12px aqua;
+  width: 4px;
+  height: calc(100% - 20px);
+  top: 10px;
+  left: 22px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.copy-box .line .scanner
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
+  width: 100%;
+  height: 20px;
+  border-radius: 50%;
+  animation: scanner-loop 3s ease-in-out infinite;
+}
+@keyframes scanner-loop
+{
+  0%
+  {
+    top: 0;
+  }
+  50%
+  {
+    top: 100%;
+  }
+  100%
+  {
+    top: 0;
+  }
+}
+.copy-box .inner
+{
+  padding: 30px;
+}
+
+@keyframes carDropShadow {
+  0% {
+    filter: drop-shadow(0 6px 6px var(--yellow))
+  }
+  50% {
+    filter: drop-shadow(0 12px 12px var(--yellow))
+
+  }
+  100% {
+    filter: drop-shadow(0 6px 6px var(--yellow))
+  }
+}
+
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
     width: 12px;
@@ -179,14 +314,7 @@ input::-webkit-inner-spin-button {
 }
 
 @media not all and (min-width: 1024px) {
-  body {
-    grid-template-columns: 75% 25%;
-  }
-  body::before {
-    width: 200%;
-    height: 200vh;
-  }
   body, html {
-    overflow: hidden;
+    overflow-x: hidden;
   }
 }

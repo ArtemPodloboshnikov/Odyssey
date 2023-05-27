@@ -22,3 +22,6 @@ export const ERORR_PHONE_MESSAGE = "Телефон не соответствуе
 export const ERROR_SALARY_MESSAGE = "Зарплата сотрудника не может быть меньше или равна 0";
 export const ERROR_LOGIN_MESSAGE = "Вы не ввели логин";
 export const ERROR_PASSWORD_MESSAGE = "Вы не ввели пароль";
+
+export const BOOK_BTN_TEXT = "Забронировать столик";
+export const CALL_BTN_TEXT = "Узнать по подробнее";

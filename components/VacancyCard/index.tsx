@@ -12,7 +12,7 @@ type VacancyCardType = {
 const VacancyCard: React.FC<VacancyCardType> = ({imagePath, title, description, salary, count, click}) => {
     return (
         <div
-        style={{backgroundImage: `url(${imagePath})`, height: "650px"}}
+        style={{backgroundImage: `url(${imagePath})`, height: "650px", backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundPosition: "center"}}
         className="group w-full rounded-[12px] bg-center bg-no-repeat bg-cover cursor-pointer"
         onClick={click}
         >
