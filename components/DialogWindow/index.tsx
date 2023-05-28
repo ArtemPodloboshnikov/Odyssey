@@ -25,10 +25,10 @@ const DialogWindow: React.FC<DialogWindowProps> = ({isOpen, onClose, status, tit
         <>
         {isOpen ?
               <>
-              <div className="fixed inset-0 bg-gray-900 opacity-100 bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-50 z-50" />
-              <div className="w-fit h-fit max-h-36 fixed bg-white px-4 py-2 rounded-lg shadow-xl z-50 top-1/2 left-1/2 -translate-y-1/2 -translate-x-2/4">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-lg text-stone-950 font-semibold">{title||statusMessage[status].title}</h2>
+              <div className="fixed inset-0 bg-gray-900 opacity-100 bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-50 z-[1001]" />
+              <div className="w-fit h-fit max-h-36 gap-y-3 fixed bg-white px-4 py-2 rounded-lg shadow-xl z-[1002] top-1/2 left-1/2 -translate-y-1/2 -translate-x-2/4">
+                <div className="flex justify-between items-center">
+                  <h2 className="text-2xl text-stone-950 font-semibold">{title||statusMessage[status].title}</h2>
                   {cross ?
                   <div className="text-gray-700 cursor-pointer" onClick={onClose}>
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -39,7 +39,7 @@ const DialogWindow: React.FC<DialogWindowProps> = ({isOpen, onClose, status, tit
                     null
                   }
                 </div>
-                <div className="text-stone-950 overflow-y-hidden scrollbar">{content||statusMessage[status].content}</div>
+                <div className="text-stone-950 overflow-y-hidden scrollbar text-xl">{content||statusMessage[status].content}</div>
               </div>
               </>
         :

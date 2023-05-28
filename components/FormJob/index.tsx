@@ -5,12 +5,12 @@ import FileLoader from "@/components/FileLoader";
 import Galary from "@/components/Galary";
 import Input, { InputIcons } from "@/components/Input";
 import Textarea from "@/components/Textarea";
-import { COUNT_PLACEHOLDER, ERROR_SALARY_MESSAGE, PROFESSION_PLACEHOLDER, SALARY_PLACEHOLDER, UPDATE_BTN_TEXT, VACANCY_PLACEHOLDER } from "@/constants/placeholders";
+import { VACANCIES_LINK } from "@/constants/links";
+import { COUNT_PLACEHOLDER, DELETE_BTN_TEXT, PROFESSION_PLACEHOLDER, SALARY_PLACEHOLDER, UPDATE_BTN_TEXT, VACANCY_PLACEHOLDER } from "@/constants/placeholders";
+import { changeJSON } from "@/lib/changeJSON";
 import { getJSON } from "@/lib/getJSON";
-import { postVacancies } from "@/lib/postVacancies";
-import { putVacancies } from "@/lib/putVacancies";
 import { uploadFiles } from "@/lib/uploadFiles";
-import { FormCategory, SectionJsonTypes, VacanciesConfig } from "@/typings";
+import { ChangeJsonMethods, FormCategory, SectionJsonTypes, VacanciesConfig } from "@/typings";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 
@@ -45,27 +45,33 @@ const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
     const [data, setData] = useState<VacanciesConfig>({});
     const onSubmit: SubmitHandler<FormInputs> = async (dataUpdate) => {
         const files = Object.values(dataUpdate.image);
-        const vacancy: VacanciesConfig = {
-            [dataUpdate.profession]: {
-                count: dataUpdate.count||data[profession]?.count,
-                description: dataUpdate.description||data[profession]?.description,
-                salary: dataUpdate.salary||data[profession]?.salary,
-                imagePath: files[0] ? `/images/professions/${files[0].name}` : data[profession]?.imagePath
+        if (files.length) {
+            const vacancy: VacanciesConfig = {
+                [dataUpdate.profession]: {
+                    count: dataUpdate.count||data[profession]?.count,
+                    description: dataUpdate.description||data[profession]?.description,
+                    salary: dataUpdate.salary||data[profession]?.salary,
+                    imagePath: files[0] ? `/images/professions/${files[0].name}` : data[profession]?.imagePath
+                }
             }
-        }
-        const formData = new FormData();
-        files.forEach(file => {
-            formData.append('files', file, file.name)
-        })
+            const formData = new FormData();
+            files.forEach(file => {
+                formData.append('files', file, file.name)
+            })
 
-        await uploadFiles(formData, FormCategory.VACANCIES);
-        let res: number;
-        if (data[dataUpdate.profession] !== undefined)
-            res = await putVacancies(vacancy);
-        else
-            res = await postVacancies(vacancy);
-        setDialog({open: true, status: res})
+            await uploadFiles(formData, FormCategory.VACANCIES);
+            let res: number;
+            if (data[dataUpdate.profession] !== undefined)
+                res = await changeJSON(SectionJsonTypes.VACANCIES, vacancy, ChangeJsonMethods.PUT);
+            else
+                res = await changeJSON(SectionJsonTypes.VACANCIES, vacancy, ChangeJsonMethods.POST);
+            setDialog({open: true, status: res})
+        }
     };
+
+    const onDelete: SubmitHandler<FormInputs> = async (dataUpdate) =>{
+        console.log(dataUpdate)
+    }
 
 
 
@@ -79,7 +85,8 @@ const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
     })
     return (
         <>
-            <form className="h-fit col-start-1 col-end-3 mt-56 mx-10 flex flex-col gap-y-5 max-lg:col-end-5 max-lg:my-0 max-lg:mt-5" onSubmit={handleSubmit(onSubmit)}>
+            <form className="h-[500px] overflow-y-auto col-start-1 col-end-3 mt-56 mx-10 flex flex-col gap-y-5 max-lg:col-end-5 max-lg:my-0 max-lg:mt-5">
+                <h1 className="text-2xl font-extrabold text-center">{VACANCIES_LINK.text.toUpperCase()}</h1>
                 <Input
                 register={register(InputsName.PROFESSION, {required: true})}
                 placeholder={PROFESSION_PLACEHOLDER}
@@ -89,32 +96,31 @@ const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
                 setValue={setValue}
                 />
                 <Input
-                register={register(InputsName.SALARY, {valueAsNumber: true, value: data[profession]?.salary, validate: (val)=>Number(val)>0, required: true})}
+                register={register(InputsName.SALARY, {valueAsNumber: true})}
                 placeholder={SALARY_PLACEHOLDER}
                 icon={InputIcons.MONEY}
                 type="number"
                 defaultValue={data[profession]?.salary}
-                errors={errors}
-                textHelper={ERROR_SALARY_MESSAGE}
                 min={1}
                 />
                 <Input
-                register={register(InputsName.COUNT, {valueAsNumber: true, value: data[profession]?.count, required: true})}
+                register={register(InputsName.COUNT, {valueAsNumber: true})}
                 placeholder={COUNT_PLACEHOLDER}
                 icon={InputIcons.USERS}
                 type="number"
                 defaultValue={data[profession]?.count}
                 />
                 <Textarea
-                register={register(InputsName.DESCRIPTION, {value: data[profession]?.description, required: true})}
+                register={register(InputsName.DESCRIPTION, {required: true})}
                 placeholder={VACANCY_PLACEHOLDER}
                 defaultValue={data[profession]?.description}
                 />
                 <FileLoader register={register(InputsName.IMAGE)} setValue={setValue} getValues={getValues} />
-                <Button text={UPDATE_BTN_TEXT} style={ButtonStyle.SIMPLE} type="submit" />
+                <Button click={handleSubmit(onSubmit)} text={UPDATE_BTN_TEXT} style={ButtonStyle.CTA} type="submit" />
+                <Button click={handleSubmit(onDelete)} text={DELETE_BTN_TEXT} style={ButtonStyle.SIMPLE} type="submit" />
             </form>
             <div className="col-start-3 col-end-5 h-[90vh] mt-20 max-lg:col-start-1 max-lg:col-end-5 max-lg:h-fit max-lg:my-5 max-lg:mx-6">
-                <Galary files={galary} />
+                <Galary paths={data[profession] !== undefined ? [data[profession].imagePath] : undefined} files={galary} />
             </div>
         </>
     )

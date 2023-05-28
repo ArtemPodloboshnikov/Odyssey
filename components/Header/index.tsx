@@ -57,7 +57,7 @@ const Header: React.FC = () => {
     return (
         <header ref={stickyHeader} className={`fixed pt-[2%] w-full flex flex-row items-center place-content-center gap-4 justify-around z-50 ${path === "/admin" ? "hidden" : null}`}>
             <div className="w-[200px] h-[50px] relative max-lg:w-[100px]">
-                <Image src="/vercel.svg" fill alt="logo" />
+                <Image src="/vercel.svg" fill alt="logo" priority={true} />
             </div>
             <nav className="flex flex-row items-center gap-4">
                 {links.map((link, index) => (<a onClick={(e)=>scrollEffect(e, link.href)} key={index} href={link.href}><span className="text-white max-md:hidden">{link.text.toUpperCase()}</span>{icons[index]}</a>))}

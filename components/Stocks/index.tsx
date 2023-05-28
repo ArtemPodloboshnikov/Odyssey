@@ -1,5 +1,6 @@
 "use client"
 
+import { STOCKS_TITLE } from "@/constants/placeholders";
 import { getJSON } from "@/lib/getJSON";
 import { SectionJsonTypes, StocksConfig } from "@/typings";
 import { useEffect, useState } from "react";
@@ -18,7 +19,7 @@ const Stocks: React.FC = () => {
 
     return (
         <div className="col-start-2 col-end-6 mt-20 flex flex-col gap-y-5">
-            <h1 className="text-4xl font-extrabold">АКЦИИ</h1>
+            <h1 className="text-4xl font-extrabold">{STOCKS_TITLE.toUpperCase()}</h1>
             <div className="grid grid-cols-3 gap-10 max-lg:grid-cols-1">
                 {Object.keys(stocks).length ?
                 Object.keys(stocks).map(stock => {
@@ -30,7 +31,7 @@ const Stocks: React.FC = () => {
                         >
                             <h1 className="text-center text-4xl font-extrabold relative">{stock}</h1>
                             <span className="text-center relative">{stocks[stock].time}</span>
-                            <p className="relative max-lg:text-justify">{stocks[stock].description}</p>
+                            <p className="relative">{stocks[stock].description}</p>
                         </div>
                     )
                 }) : null}

@@ -1,3 +1,4 @@
+import { BLUR_DATA_URL } from "@/constants/placeholders";
 import Image from "next/image";
 
 const Features: React.FC = () => {
@@ -29,7 +30,7 @@ const Features: React.FC = () => {
             {features.map(feature => {
                 return (
                     <div key={feature.icon} className="relative w-48 rounded-lg bg-white flex flex-col items-center p-10">
-                        <Image src={`/images/features/${feature.icon}`} alt="" width={100} height={100} />
+                        <Image src={`/images/features/${feature.icon}`} alt="" width={100} height={100} placeholder="blur" loading="lazy" blurDataURL={BLUR_DATA_URL} />
                         <h2 className="text-red-500 text-xl font-semibold text-center">{feature.title}</h2>
                         <div className="neon_card neon_left rounded-lg"></div>
                         <div className="neon_card neon_top rounded-lg"></div>

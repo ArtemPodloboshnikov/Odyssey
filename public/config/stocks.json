@@ -1,17 +1,1 @@
-{
-    "Жаркий четверг": {
-        "time": "22:00-00:00",
-        "description": "Какое-то описание Какое-то описание Какое-то описание Какое-то описание",
-        "imagePath": "/images/stocks/142.jpg"
-    },
-    "Райский вечер": {
-        "time": "22:00-23:00",
-        "description": "",
-        "imagePath": "/images/stocks/125.jpg"
-    },
-    "Субботнее шоу": {
-        "time": "23:00-01:00",
-        "description": "",
-        "imagePath": "/images/stocks/152.jpg"
-    }
-}
+{"Жаркий четверг":{"time":"22:00-00:00","description":"Увлекательное фаер-шоу с горячими девушками","imagePath":"/images/stocks/142.jpg"},"Райский вечер":{"time":"22:00-23:00","description":"Все нимфы выходят на сцену и уносят Вас в райские сады","imagePath":"/images/stocks/125.jpg"},"Субботнее шоу":{"time":"23:00-01:00","description":"","imagePath":"/images/stocks/152.jpg"}}
