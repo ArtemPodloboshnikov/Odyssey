@@ -79,7 +79,7 @@ const Input: React.FC<InputProps> = ({placeholder, textHelper, icon, register, s
             />
             {
                 isSelect && setValue !== undefined && showOptions ?
-                <div className="w-full flex flex-col rounded-lg absolute bg-white z-50">
+                <div className="w-full flex flex-col rounded-b-lg absolute bg-white z-50">
                     {options.map(option => {
                         const changeOption = () => {
                             setValue(register.name, option);

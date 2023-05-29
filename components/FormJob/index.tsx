@@ -8,16 +8,20 @@ import Textarea from "@/components/Textarea";
 import { VACANCIES_LINK } from "@/constants/links";
 import { COUNT_PLACEHOLDER, DELETE_BTN_TEXT, PROFESSION_PLACEHOLDER, SALARY_PLACEHOLDER, UPDATE_BTN_TEXT, VACANCY_PLACEHOLDER } from "@/constants/placeholders";
 import { changeJSON } from "@/lib/changeJSON";
+import { deleteJSON } from "@/lib/deleteJSON";
 import { getJSON } from "@/lib/getJSON";
 import { uploadFiles } from "@/lib/uploadFiles";
-import { ChangeJsonMethods, FormCategory, SectionJsonTypes, VacanciesConfig } from "@/typings";
+import { ChangeJsonMethods, CategoryImages, SectionJsonTypes, VacanciesConfig } from "@/typings";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SubmitHandler, useForm, useWatch } from "react-hook-form";
+import { DialogWindowType } from "../DialogWindow";
+import { getFormData } from "@/lib/getFormData";
 
 type FormJobProps = {
     setDialog: Dispatch<SetStateAction<{
         open: boolean;
         status: number;
+        type: DialogWindowType
     }>>
 }
 
@@ -26,8 +30,8 @@ const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
         PROFESSION="profession",
         SALARY="salary",
         COUNT="count",
-        DESCRIPTION="description",
-        IMAGE="image",
+        DESCRIPTION="descriptionJob",
+        IMAGE="imageJob",
         CATEGORY="category"
     }
 
@@ -39,38 +43,42 @@ const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
         [InputsName.IMAGE]: {[key: number]: File}
     }
 
-    const {register, handleSubmit, setValue, getValues, formState: {errors}, control} = useForm<FormInputs>();
+    const {register, handleSubmit, setValue, getValues, control, reset} = useForm<FormInputs>();
     const profession = useWatch({name: InputsName.PROFESSION, control});
     const galary = useWatch({name: InputsName.IMAGE, control});
     const [data, setData] = useState<VacanciesConfig>({});
     const onSubmit: SubmitHandler<FormInputs> = async (dataUpdate) => {
-        const files = Object.values(dataUpdate.image);
-        if (files.length) {
+        const files = Object.values(dataUpdate.imageJob);
             const vacancy: VacanciesConfig = {
                 [dataUpdate.profession]: {
                     count: dataUpdate.count||data[profession]?.count,
-                    description: dataUpdate.description||data[profession]?.description,
+                    description: dataUpdate.descriptionJob||data[profession]?.description,
                     salary: dataUpdate.salary||data[profession]?.salary,
                     imagePath: files[0] ? `/images/professions/${files[0].name}` : data[profession]?.imagePath
                 }
             }
-            const formData = new FormData();
-            files.forEach(file => {
-                formData.append('files', file, file.name)
-            })
-
-            await uploadFiles(formData, FormCategory.VACANCIES);
+            if (files.length) {
+                const formData = getFormData(dataUpdate.imageJob);
+                await uploadFiles(formData, CategoryImages.VACANCIES);
+            }
             let res: number;
-            if (data[dataUpdate.profession] !== undefined)
+            if (data[dataUpdate.profession] !== undefined) {
                 res = await changeJSON(SectionJsonTypes.VACANCIES, vacancy, ChangeJsonMethods.PUT);
-            else
+                setDialog({open: true, status: res, type: DialogWindowType.UPDATE})
+            }
+            else {
                 res = await changeJSON(SectionJsonTypes.VACANCIES, vacancy, ChangeJsonMethods.POST);
-            setDialog({open: true, status: res})
-        }
+                setDialog({open: true, status: res, type: DialogWindowType.CREATE});
+                setData({})
+            }
+
     };
 
     const onDelete: SubmitHandler<FormInputs> = async (dataUpdate) =>{
-        console.log(dataUpdate)
+        const res = await deleteJSON(SectionJsonTypes.VACANCIES, dataUpdate.profession);
+        setData({})
+        reset();
+        setDialog({open: true, status: res, type: DialogWindowType.DELETE})
     }
 
 
@@ -82,10 +90,10 @@ const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
 
         if (Object.keys(data).length === 0)
             getData();
-    })
+    }, [data])
     return (
         <>
-            <form className="h-[500px] overflow-y-auto col-start-1 col-end-3 mt-56 mx-10 flex flex-col gap-y-5 max-lg:col-end-5 max-lg:my-0 max-lg:mt-5">
+            <form className="h-[600px] overflow-y-auto scrollbar col-start-1 col-end-3 mx-10 pr-5 flex flex-col gap-y-5 max-lg:col-start-2 max-lg:col-end-7 max-lg:h-fit max-lg:mt-5 max-lg:mx-0 max-lg:pr-0 max-lg:overflow-y-visible">
                 <h1 className="text-2xl font-extrabold text-center">{VACANCIES_LINK.text.toUpperCase()}</h1>
                 <Input
                 register={register(InputsName.PROFESSION, {required: true})}
@@ -111,17 +119,15 @@ const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
                 defaultValue={data[profession]?.count}
                 />
                 <Textarea
-                register={register(InputsName.DESCRIPTION, {required: true})}
+                register={register(InputsName.DESCRIPTION)}
                 placeholder={VACANCY_PLACEHOLDER}
                 defaultValue={data[profession]?.description}
                 />
+                <Galary paths={data[profession] !== undefined ? [data[profession].imagePath] : undefined} files={galary} />
                 <FileLoader register={register(InputsName.IMAGE)} setValue={setValue} getValues={getValues} />
                 <Button click={handleSubmit(onSubmit)} text={UPDATE_BTN_TEXT} style={ButtonStyle.CTA} type="submit" />
                 <Button click={handleSubmit(onDelete)} text={DELETE_BTN_TEXT} style={ButtonStyle.SIMPLE} type="submit" />
             </form>
-            <div className="col-start-3 col-end-5 h-[90vh] mt-20 max-lg:col-start-1 max-lg:col-end-5 max-lg:h-fit max-lg:my-5 max-lg:mx-6">
-                <Galary paths={data[profession] !== undefined ? [data[profession].imagePath] : undefined} files={galary} />
-            </div>
         </>
     )
 }

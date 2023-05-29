@@ -30,7 +30,7 @@ export type StocksConfig = {
     }
 };
 
-export enum FormCategory {
+export enum CategoryImages {
     SERVICIES="services",
     MENU="menu",
     VACANCIES="professions",

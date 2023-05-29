@@ -37,3 +37,20 @@ export async function PUT(request: Request) {
   await fs.writeFile(fullPath, newContent)
   return new Response(JSON.stringify({status: 200}))
 }
+
+export async function DELETE(request: Request) {
+  const url = new URL(request.url);
+  const category = url.searchParams.get("category") as string;
+  const key = url.searchParams.get("key") as string;
+  const fullPath = getFolderPath(category);
+  const fileContents = JSON.parse(await fs.readFile(fullPath, 'utf8'));
+  const baseFolder = path.join(process.cwd(), `public`);
+  try {
+    fs.unlink(baseFolder + fileContents[key].imagePath)
+  } catch(e) {
+      console.log(e)
+  }
+  const {[key]: removeProperty, ...newContent} = fileContents;
+  await fs.writeFile(fullPath, JSON.stringify(newContent))
+  return new Response(JSON.stringify({status: 200}))
+}

@@ -33,4 +33,4 @@ export const BLUR_DATA_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEA
 export const STOCKS_TITLE = "Акции";
 export const STOCKS_TITLE_PLACEHOLDER = "Название акции";
 export const STOCKS_PLACEHOLDER = "Опишите опишите акции";
-export const TIME_PLACEHOLDER = "Время, можно в формате 'с 19:00 до 07:00'";
+export const TIME_PLACEHOLDER = "Время, желательно в формате 'с 19:00 до 07:00'";
