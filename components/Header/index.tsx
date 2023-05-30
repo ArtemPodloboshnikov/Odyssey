@@ -1,6 +1,6 @@
 "use client"
 import { INTERIOR_LINK, GIRLS_LINK, MENU_LINK, SERVICES_LINK, VACANCIES_LINK, PHONE_LINK } from '@/constants/links';
-import Button from '../Button';
+import Button, { ButtonStyle } from '../Button';
 import { BOOK_BTN_TEXT } from '@/constants/placeholders';
 import Image from 'next/image';
 import { ReactNode, useLayoutEffect, useRef } from 'react';
@@ -73,6 +73,7 @@ const Header: React.FC = () => {
                 </>
             }
             href={PHONE_LINK}
+            style={ButtonStyle.CTA}
             type='link'
             />
         </header>
