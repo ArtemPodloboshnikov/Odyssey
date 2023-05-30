@@ -49,7 +49,7 @@ export default function FormVacancy({id, title}:{id: string, title: string}) {
     }
     return (
         <>
-            <div className="col-start-1 col-end-7 relative -mt-[100px]" id={id}></div>
+            <div className="col-start-1 col-end-7 relative top-[-100px]" id={id}></div>
             <div className="col-start-1 col-end-7 mt-10">
                 <h1 className="text-4xl font-extrabold pl-56 max-lg:pl-5">{title.toUpperCase()}</h1>
                 <Slider>
