@@ -1,7 +1,7 @@
 "use client"
 
 import { FILE_INPUT_PLACEHOLDER } from '@/constants/placeholders';
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { UseFormGetValues, UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 
 interface FileLoaderProps {
