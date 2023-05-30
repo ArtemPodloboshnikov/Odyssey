@@ -1,32 +1,36 @@
 "use client"
 
 import { deleteFile } from "@/lib/deleteFile";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 import Galary from "../Galary";
 import FileLoader from "../FileLoader";
-import Button from "../Button";
+import Button, { ButtonStyle } from "../Button";
 import { UPDATE_BTN_TEXT } from "@/constants/placeholders";
 import { uploadFiles } from "@/lib/uploadFiles";
-import { FormCategory } from "@/typings";
+import { CategoryImages, SectionGalaryTypes } from "@/typings";
+import { MENU_LINK, SERVICES_LINK } from "@/constants/links";
+import { DialogWindowType } from "../DialogWindow";
+import { getFormData } from "@/lib/getFormData";
+import { getFilesPaths } from "@/lib/getFilesPaths";
 
-export type FormServicesProps = {
-    services: string[],
-    menu: string[]
-}
 
-type FormServicesAdditionalProps = {
+type FormServicesProps = {
     setDialog: Dispatch<SetStateAction<{
         open: boolean;
         status: number;
-    }>>,
-    setData: Dispatch<SetStateAction<any>>
+        type: DialogWindowType
+    }>>
 }
 
-const FormServices: React.FC<FormServicesProps&FormServicesAdditionalProps> = ({menu, services, setData, setDialog}) => {
+const FormServices: React.FC<FormServicesProps> = ({setDialog}) => {
     enum InputsName {
         MENU="menu",
-        SERVICES="services"
+        SERVICES="services",
+        STOCKS="stocks",
+        DESCRIPTION="description",
+        TIME="time",
+        TITLE="title"
     }
 
     type ServicesInputs = {
@@ -37,6 +41,11 @@ const FormServices: React.FC<FormServicesProps&FormServicesAdditionalProps> = ({
         [InputsName.MENU]: {[key: number]: File}
     }
 
+    type DataType = {
+        services: string[],
+        menu: string[],
+    }
+
     const {
         register: registerServices,
         handleSubmit: handleSubmitServices,
@@ -45,20 +54,13 @@ const FormServices: React.FC<FormServicesProps&FormServicesAdditionalProps> = ({
         control: controlServices
     } = useForm<ServicesInputs>();
 
-    const getFormData = (data: {[nameInput: string]: {[key: number]: File}}, name: InputsName) => {
-        const files = Object.values(data[name]);
-        const formData = new FormData();
-        files.forEach(file => {
-            formData.append('files', file, file.name)
-        })
-
-        return formData;
-    }
+    const dataDefault: DataType = {menu: [], services: []};
+    const [data, setData] = useState<DataType>(dataDefault);
 
     const onSubmitServices: SubmitHandler<ServicesInputs> = async (data) => {
-        const formData = getFormData(data, InputsName.SERVICES);
-        const res = await uploadFiles(formData, FormCategory.SERVICIES);
-        setDialog({open: true, status: res});
+        const formData = getFormData(data[InputsName.SERVICES]);
+        const res = await uploadFiles(formData, CategoryImages.SERVICIES);
+        setDialog({open: true, status: res, type: DialogWindowType.UPDATE});
     }
 
     const {
@@ -70,34 +72,52 @@ const FormServices: React.FC<FormServicesProps&FormServicesAdditionalProps> = ({
     } = useForm<MenuInputs>();
 
     const onSubmitMenu: SubmitHandler<MenuInputs> = async (data) => {
-        const formData = getFormData(data, InputsName.MENU);
-        const res = await uploadFiles(formData, FormCategory.MENU);
-        setDialog({open: true, status: res});
+        const formData = getFormData(data[InputsName.MENU]);
+        const res = await uploadFiles(formData, CategoryImages.MENU);
+        setDialog({open: true, status: res, type: DialogWindowType.UPDATE});
     }
+
+
 
     const galaryServices = useWatch({name: InputsName.SERVICES, control: controlServices});
     const galaryMenu = useWatch({name: InputsName.MENU, control: controlMenu});
 
     const deleteImage = async (path: string) => {
-        await deleteFile(path);
-        setData({menu: [], services: []});
+        const res = await deleteFile(path);
+        setData(dataDefault);
+        setDialog({open: true, status: res, type: DialogWindowType.DELETE})
     }
 
+    useEffect(()=>{
+        const getData = async () => {
+            const services = await getFilesPaths(SectionGalaryTypes.SERVICES);
+            const menu = await getFilesPaths(SectionGalaryTypes.MENU);
+            setData({
+                services: services,
+                menu: menu
+            });
+        }
+
+        if (data.menu.length === 0)
+            getData();
+    })
     return (
         <>
         <form onSubmit={handleSubmitServices(onSubmitServices)} className="w-full h-fit flex flex-col gap-y-5">
-            <div className="max-lg:relative max-md:-left-10">
-                <Galary paths={services} files={galaryServices} deleteImage={deleteImage} slider />
+            <h1 className="text-2xl font-extrabold text-center">{SERVICES_LINK.text.toUpperCase()}</h1>
+            <div className="max-lg:relative">
+                <Galary paths={data.services} files={galaryServices} deleteImage={deleteImage} slider />
             </div>
             <FileLoader register={registerServices(InputsName.SERVICES)} setValue={setValueServices} getValues={getValuesServices} multiple />
-            <Button text={UPDATE_BTN_TEXT} type="submit" />
+            <Button text={UPDATE_BTN_TEXT} type="submit" style={ButtonStyle.CTA} />
         </form>
         <form onSubmit={handleSubmitMenu(onSubmitMenu)} className="mb-5 w-full h-fit flex flex-col gap-y-5">
-            <div className="max-lg:relative max-md:-left-10">
-                <Galary paths={menu} files={galaryMenu} deleteImage={deleteImage} slider />
+            <h1 className="text-2xl font-extrabold text-center">{MENU_LINK.text.toUpperCase()}</h1>
+            <div className="max-lg:relative">
+                <Galary paths={data.menu} files={galaryMenu} deleteImage={deleteImage} slider />
             </div>
             <FileLoader register={registerMenu(InputsName.MENU)} setValue={setValueMenu} getValues={getValuesMenu} multiple />
-            <Button text={UPDATE_BTN_TEXT} type="submit" />
+            <Button text={UPDATE_BTN_TEXT} type="submit" style={ButtonStyle.CTA} />
         </form>
         </>
     )

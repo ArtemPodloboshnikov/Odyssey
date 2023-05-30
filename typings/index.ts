@@ -30,10 +30,11 @@ export type StocksConfig = {
     }
 };
 
-export enum FormCategory {
+export enum CategoryImages {
     SERVICIES="services",
     MENU="menu",
-    VACANCIES="professions"
+    VACANCIES="professions",
+    STOCKS="stocks"
 }
 
 export type AuthorizationData = {
@@ -45,10 +46,16 @@ export enum SectionGalaryTypes {
     MENU="menu",
     SERVICES="services",
     INTERIOR="interior",
-    GIRLS="girls"
+    GIRLS="girls",
+    STOCKS="stocks"
 }
 
 export enum SectionJsonTypes {
     VACANCIES="vacancies",
     STOCKS="stocks"
+}
+
+export enum ChangeJsonMethods {
+    POST="POST",
+    PUT="PUT"
 }

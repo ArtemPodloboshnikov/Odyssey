@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 interface GalaryProps {
     files: {[key: number]: File}|undefined,
-    paths?: string[],
+    paths: string[]|undefined,
     slider?: boolean,
     deleteImage?: (path: string)=>void
 }
@@ -57,6 +57,7 @@ const Galary: React.FC<GalaryProps> = ({files, paths, deleteImage, slider=false}
             null}
         </div>
     )
+
 
     return (
         <div className="w-full grid grid-flow-col items-center">

@@ -32,7 +32,6 @@ export async function POST(request: Request) {
     formData.forEach(async value => {
         const file = value as File;
         const buffer = Buffer.from(Buffer.from(await file.arrayBuffer()).toString("base64"), "base64")
-        console.log(baseFolder)
         fs.writeFile(`${baseFolder}/${file.name}`, buffer)
     })
 
@@ -46,7 +45,7 @@ export async function DELETE(request: Request) {
     try {
         fs.unlink(filePath)
     } catch(e) {
-        console.log(e)
+        console.error(e)
     }
     return new Response(JSON.stringify({status: 200}))
 }

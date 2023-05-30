@@ -20,7 +20,7 @@ const SectionGalary: React.FC<SectionGalaryProps> = ({id, title, text, section})
                   <div className="line right">
                     <div className="scanner"></div>
                   </div>
-                  <p className="text-lg max-lg:text-base max-lg:text-justify">{text}</p>
+                  <p className="text-lg max-lg:text-base">{text}</p>
                 </div>
               </div>
             :

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { SectionGalaryTypes } from "@/typings";
 import { getFilesPaths } from "@/lib/getFilesPaths";
+import { BLUR_DATA_URL } from "@/constants/placeholders";
 
 export default function UserGalary({section}:{section: SectionGalaryTypes}) {
   const [currentImage, setCurrentImage] = useState(0);
@@ -59,6 +60,9 @@ export default function UserGalary({section}:{section: SectionGalaryTypes}) {
             height={400}
             key={index}
             alt=""
+            placeholder="blur"
+            loading="lazy"
+            blurDataURL={BLUR_DATA_URL}
             />
         ))}
 

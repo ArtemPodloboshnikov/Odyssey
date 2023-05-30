@@ -10,6 +10,7 @@ import VacancyCard from "@/components/VacancyCard";
 import { useEffect, useState } from "react";
 import { SectionJsonTypes, VacanciesConfig } from "@/typings";
 import { validateName, validatePhone } from "@/lib/validateFields";
+import Slider from "../Slider";
 
 export default function FormVacancy({id, title}:{id: string, title: string}) {
     enum InputsName {
@@ -50,8 +51,8 @@ export default function FormVacancy({id, title}:{id: string, title: string}) {
         <>
             <div className="col-start-1 col-end-7 relative -mt-[100px]" id={id}></div>
             <div className="col-start-1 col-end-7 mt-10">
-                <h1 className="text-4xl font-extrabold pl-10">{title.toUpperCase()}</h1>
-                <div className="px-10 grid grid-cols-3 justify-items-center scrollbar mt-5 gap-5 max-lg:grid-cols-1">
+                <h1 className="text-4xl font-extrabold pl-56 max-lg:pl-5">{title.toUpperCase()}</h1>
+                <Slider>
                     {vacancies !== null ?
                     Object.keys(vacancies).map(profession => {
                         const chooseVacancy = () => {
@@ -77,14 +78,15 @@ export default function FormVacancy({id, title}:{id: string, title: string}) {
                             />
                         )
                     }) : null}
-                </div>
+
+                </Slider>
             </div>
             <form
             className="my-56 flex flex-col gap-y-5 px-[35%] before:inset-0 before:bg-gray-900 before:opacity-100 before:bg-clip-padding before:backdrop-filter before:backdrop-blur-xl before:bg-opacity-50 fixed max-lg:px-10 place-content-center w-screen left-0 top-0 before:w-screen before:h-screen before:content-[''] before:flex before:fixed before:left-0 before:top-0 z-[1001]"
             onSubmit={handleSubmit(onSubmit)}
             style={{display: "none"}}
             >
-                <h1 className="relative">{PROFESSION_PLACEHOLDER}</h1>
+                <h1 className="relative font-semibold">{PROFESSION_PLACEHOLDER}</h1>
                 <Input placeholder={USER_NAME_PLACEHOLDER} icon={InputIcons.USER} errors={errors} textHelper={ERROR_FIO_MESSAGE} register={register(InputsName.NAME, {required: true, validate: (value)=>validateName(value)})}/>
                 <Input placeholder={PHONE_PLACEHOLDER} type="tel" errors={errors} textHelper={ERORR_PHONE_MESSAGE} register={register(InputsName.PHONE, {required: true, validate: (value)=>validatePhone(value)})}/>
                 <Input placeholder={RESUME_LINK_PLACEHOLDER} type="url" register={register(InputsName.URL)}/>
@@ -92,7 +94,7 @@ export default function FormVacancy({id, title}:{id: string, title: string}) {
                 <Button text={SEND_BTN_TEXT} type="submit" style={ButtonStyle.CTA}/>
                 <input {...register(InputsName.PROFESSION)} type="hidden" />
                 <div className="relative grid justify-self-center justify-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" onClick={crossClick} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 cursor-pointer max-lg:w-6 max-lg:h-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" onClick={crossClick} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 cursor-pointer max-lg:w-8 max-lg:h-8">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </div>
