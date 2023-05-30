@@ -5,6 +5,7 @@ import { BOOK_BTN_TEXT } from '@/constants/placeholders';
 import Image from 'next/image';
 import { ReactNode, useLayoutEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 const Header: React.FC = () => {
     const links = [INTERIOR_LINK, GIRLS_LINK, MENU_LINK, SERVICES_LINK, VACANCIES_LINK];
@@ -60,7 +61,7 @@ const Header: React.FC = () => {
                 <Image src="/vercel.svg" fill alt="logo" priority={true} />
             </div>
             <nav className="flex flex-row items-center gap-4">
-                {links.map((link, index) => (<a onClick={(e)=>scrollEffect(e, link.href)} key={index} href={link.href}><span className="text-white max-md:hidden">{link.text.toUpperCase()}</span>{icons[index]}</a>))}
+                {links.map((link, index) => (<Link onClick={(e)=>scrollEffect(e, link.href)} key={index} href={link.href}><span className="text-white max-md:hidden">{link.text.toUpperCase()}</span>{icons[index]}</Link>))}
             </nav>
             <Button
             text={

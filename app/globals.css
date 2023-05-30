@@ -20,22 +20,6 @@ body {
   color: #fff;
   overflow-x: hidden;
   position: relative;
-  /* background-color:hsla(0,100%,50%,1); */
-  /* background: #fe2a41; */
-  /* background-image:
-radial-gradient(at 40% 20%, hsla(28,100%,74%,1) 0px, transparent 50%),
-radial-gradient(at 80% 0%, rgb(255, 31, 199) 0px, transparent 50%),
-radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%),
-radial-gradient(at 80% 50%, hsla(340,100%,76%,1) 0px, transparent 50%),
-radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0px, transparent 50%),
-radial-gradient(at 80% 100%, hsla(242,100%,70%,1) 0px, transparent 50%),
-radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%); */
-  /* background: #150813; */
-  /* background: linear-gradient(22deg, #e70f5e, #b35ac3, #148ae3);
-
-
-  -webkit-animation: bg 30s ease infinite;
-  -moz-animation: bg 30s ease infinite;*/
   background-size: 210% 210%;
   background-color: #e70d0d;
   background-image: radial-gradient(at 94% 40%, hsla(167, 90%, 55%, 1) 0, hsla(167, 90%, 55%, 0) 50%),
@@ -55,57 +39,9 @@ body::before {
   left: 0;
   top: 0;
   background: rgba(0, 0, 0,.6);
-  /* backdrop-filter: blur(0px); */
 }
 
-@-webkit-keyframes bg {
-  /* 0%{background-position:0% 94%}
-  50%{background-position:100% 7%}
-  100%{background-position:0% 94%} */
-  0%{
-    background-color:#99ebff;
-background-image:
-radial-gradient(at 2% 21%, hsla(333,75%,78%,1) 0px, transparent 50%),
-radial-gradient(at 8% 95%, hsla(277,90%,74%,1) 0px, transparent 50%),
-radial-gradient(at 34% 96%, hsla(28,78%,69%,1) 0px, transparent 50%),
-radial-gradient(at 90% 64%, hsla(6,78%,64%,1) 0px, transparent 50%),
-radial-gradient(at 85% 75%, hsla(289,67%,77%,1) 0px, transparent 50%),
-radial-gradient(at 80% 64%, hsla(269,91%,61%,1) 0px, transparent 50%),
-radial-gradient(at 10% 27%, hsla(60,76%,60%,1) 0px, transparent 50%);
-  }
-  50%{
-    background-color:#ff9e99;
-    background-image:
-    radial-gradient(at 96% 78%, hsla(25,81%,61%,1) 0px, transparent 50%),
-    radial-gradient(at 78% 17%, hsla(283,69%,68%,1) 0px, transparent 50%),
-    radial-gradient(at 1% 90%, hsla(254,86%,68%,1) 0px, transparent 50%),
-    radial-gradient(at 73% 77%, hsla(144,76%,72%,1) 0px, transparent 50%),
-    radial-gradient(at 11% 52%, hsla(258,72%,71%,1) 0px, transparent 50%),
-    radial-gradient(at 26% 59%, hsla(47,91%,71%,1) 0px, transparent 50%),
-    radial-gradient(at 39% 33%, hsla(77,83%,66%,1) 0px, transparent 50%);
-  }
-  100%{
-    background-color:#a099ff;
-    background-image:
-    radial-gradient(at 5% 97%, hsla(291,72%,75%,1) 0px, transparent 50%),
-    radial-gradient(at 79% 96%, hsla(18,74%,61%,1) 0px, transparent 50%),
-    radial-gradient(at 99% 85%, hsla(275,84%,60%,1) 0px, transparent 50%),
-    radial-gradient(at 68% 40%, hsla(279,97%,68%,1) 0px, transparent 50%),
-    radial-gradient(at 70% 68%, hsla(155,60%,73%,1) 0px, transparent 50%),
-    radial-gradient(at 12% 80%, hsla(140,65%,76%,1) 0px, transparent 50%),
-    radial-gradient(at 91% 41%, hsla(73,76%,60%,1) 0px, transparent 50%);
-  }
-}
-@-moz-keyframes bg {
-  0%{background-position:0% 94%}
-  50%{background-position:100% 7%}
-  100%{background-position:0% 94%}
-}
-@-o-keyframes bg {
-  0%{background-position:0% 94%}
-  50%{background-position:100% 7%}
-  100%{background-position:0% 94%}
-}
+
 @keyframes bg {
   0%{background-position:0% 94%}
   50%{background-position:100% 7%}
@@ -114,9 +50,8 @@ radial-gradient(at 10% 27%, hsla(60,76%,60%,1) 0px, transparent 50%);
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    margin: 0;
 }
 
 div[class="pigeon-attribution"] {

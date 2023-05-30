@@ -60,9 +60,7 @@ export default function UserGalary({section}:{section: SectionGalaryTypes}) {
             height={400}
             key={index}
             alt=""
-            placeholder="blur"
-            loading="lazy"
-            blurDataURL={BLUR_DATA_URL}
+            priority
             />
         ))}
 
