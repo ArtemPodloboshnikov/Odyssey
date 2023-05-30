@@ -119,7 +119,7 @@ input::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
-div[class="leaflet-bottom leaflet-right"] {
+div[class="pigeon-attribution"] {
   display: none;
 }
 

@@ -13,6 +13,7 @@ import Button, { ButtonStyle } from "../Button";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { deleteJSON } from "@/lib/deleteJSON";
 import { getJSON } from "@/lib/getJSON";
+import { deleteFile } from "@/lib/deleteFile";
 
 type FormStocksProps = {
     setDialog: Dispatch<SetStateAction<{
@@ -57,30 +58,39 @@ const FormStocks: React.FC<FormStocksProps> = ({setDialog}) => {
             await uploadFiles(formData, CategoryImages.STOCKS);
         }
 
-            const stock: StocksConfig = {
-                [data.title]: {
-                    time: data.time||stocks[stocksTitle].time,
-                    description: data.descriptionStocks||stocks[stocksTitle].description,
-                    imagePath: files[0] ? `/images/stocks/${files[0].name}` : stocks[data.title]?.imagePath
-                }
+        const stock: StocksConfig = {
+            [data.title]: {
+                time: data.time||stocks[stocksTitle]?.time,
+                description: data.descriptionStocks||stocks[stocksTitle]?.description,
+                imagePath: files[0] ? `/images/stocks/${files[0].name}` : stocks[data.title]?.imagePath
             }
+        }
 
-            let res: number;
-            if (stocks[data.title] !== undefined) {
-                res = await changeJSON(SectionJsonTypes.STOCKS, stock, ChangeJsonMethods.PUT);
-                setDialog({open: true, status: res, type: DialogWindowType.UPDATE})
-            }
-            else {
-                res = await changeJSON(SectionJsonTypes.STOCKS, stock, ChangeJsonMethods.POST)
-                setDialog({open: true, status: res, type: DialogWindowType.CREATE})
-            }
+        let res: number;
+        if (stocks[data.title] !== undefined) {
+            res = await changeJSON(SectionJsonTypes.STOCKS, stock, ChangeJsonMethods.PUT);
+            setDialog({open: true, status: res, type: DialogWindowType.UPDATE})
+        }
+        else {
+            res = await changeJSON(SectionJsonTypes.STOCKS, stock, ChangeJsonMethods.POST)
+            setDialog({open: true, status: res, type: DialogWindowType.CREATE})
+        }
+        setStocks({});
+        reset();
     }
 
     const onDelete: SubmitHandler<StocksInputs> = async (dataUpdate) =>{
-        const res = await deleteJSON(SectionJsonTypes.VACANCIES, dataUpdate.title);
+        const res = await deleteJSON(SectionJsonTypes.STOCKS, dataUpdate.title);
         setStocks({})
         reset();
         setDialog({open: true, status: res, type: DialogWindowType.DELETE})
+    }
+
+    const deleteImage = async (path: string) => {
+        await deleteFile(path);
+        const bufData = {...stocks};
+        bufData[stocksTitle].imagePath = "";
+        setStocks(bufData);
     }
 
     const galaryStocks = useWatch({name: InputsName.IMAGE, control: controlStocks});
@@ -94,7 +104,7 @@ const FormStocks: React.FC<FormStocksProps> = ({setDialog}) => {
             getData();
     }, [stocks])
     return (
-        <form onSubmit={handleSubmitStocks(onSubmit)} className="h-[600px] overflow-y-auto scrollbar pr-5 col-start-3 col-end-5 w-full flex flex-col gap-y-5 max-lg:col-start-2 max-lg:col-end-7 max-lg:h-fit max-lg:mt-5 max-lg:pr-0 max-lg:overflow-y-visible">
+        <form onSubmit={handleSubmitStocks(onSubmit)} className="h-[600px] overflow-y-auto scrollbar pr-5 col-start-3 col-end-5 w-full flex flex-col gap-y-5 max-lg:col-start-1 max-lg:col-end-7 max-lg:h-fit max-lg:mt-5 max-lg:pr-0 max-lg:overflow-y-visible">
             <h1 className="text-2xl font-extrabold text-center">{STOCKS_TITLE.toUpperCase()}</h1>
             <Input
             register={registerStocks(InputsName.TITLE, {required: true})}
@@ -115,11 +125,11 @@ const FormStocks: React.FC<FormStocksProps> = ({setDialog}) => {
             defaultValue={stocks[stocksTitle]?.description}
             />
             <div className="max-lg:relative">
-                <Galary paths={stocks[stocksTitle] ? [stocks[stocksTitle].imagePath] : undefined} files={galaryStocks} />
+                <Galary paths={stocks[stocksTitle] && stocks[stocksTitle].imagePath ? [stocks[stocksTitle].imagePath] : undefined} files={galaryStocks} deleteImage={deleteImage} />
             </div>
             <FileLoader register={registerStocks(InputsName.IMAGE)} setValue={setValueStocks} getValues={getValuesStocks} />
             <Button click={handleSubmitStocks(onSubmit)} text={UPDATE_BTN_TEXT} type="submit" style={ButtonStyle.CTA} />
-            <Button click={handleSubmitStocks(onDelete)} text={DELETE_BTN_TEXT} style={ButtonStyle.SIMPLE} type="submit" />
+            <Button click={handleSubmitStocks(onDelete)} text={DELETE_BTN_TEXT} type="submit" style={ButtonStyle.SIMPLE} />
         </form>
     )
 }

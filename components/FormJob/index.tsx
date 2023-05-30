@@ -16,6 +16,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 import { DialogWindowType } from "../DialogWindow";
 import { getFormData } from "@/lib/getFormData";
+import { deleteFile } from "@/lib/deleteFile";
 
 type FormJobProps = {
     setDialog: Dispatch<SetStateAction<{
@@ -69,10 +70,17 @@ const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
             else {
                 res = await changeJSON(SectionJsonTypes.VACANCIES, vacancy, ChangeJsonMethods.POST);
                 setDialog({open: true, status: res, type: DialogWindowType.CREATE});
-                setData({})
             }
-
+            setData({});
+            reset();
     };
+
+    const deleteImage = async (path: string) => {
+        await deleteFile(path);
+        const bufData = {...data};
+        bufData[profession].imagePath = "";
+        setData(bufData);
+    }
 
     const onDelete: SubmitHandler<FormInputs> = async (dataUpdate) =>{
         const res = await deleteJSON(SectionJsonTypes.VACANCIES, dataUpdate.profession);
@@ -80,8 +88,6 @@ const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
         reset();
         setDialog({open: true, status: res, type: DialogWindowType.DELETE})
     }
-
-
 
     useEffect(()=>{
         const getData = async () => {
@@ -93,7 +99,7 @@ const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
     }, [data])
     return (
         <>
-            <form className="h-[600px] overflow-y-auto scrollbar col-start-1 col-end-3 mx-10 pr-5 flex flex-col gap-y-5 max-lg:col-start-2 max-lg:col-end-7 max-lg:h-fit max-lg:mt-5 max-lg:mx-0 max-lg:pr-0 max-lg:overflow-y-visible">
+            <form className="h-[600px] overflow-y-auto scrollbar col-start-1 col-end-3 mx-10 pr-5 flex flex-col gap-y-5 max-lg:col-end-7 max-lg:h-fit max-lg:mt-5 max-lg:mx-0 max-lg:pr-0 max-lg:overflow-y-visible">
                 <h1 className="text-2xl font-extrabold text-center">{VACANCIES_LINK.text.toUpperCase()}</h1>
                 <Input
                 register={register(InputsName.PROFESSION, {required: true})}
@@ -123,7 +129,7 @@ const FormJob: React.FC<FormJobProps> = ({setDialog}) => {
                 placeholder={VACANCY_PLACEHOLDER}
                 defaultValue={data[profession]?.description}
                 />
-                <Galary paths={data[profession] !== undefined ? [data[profession].imagePath] : undefined} files={galary} />
+                <Galary paths={data[profession] && data[profession].imagePath ? [data[profession].imagePath] : undefined} files={galary} deleteImage={deleteImage} />
                 <FileLoader register={register(InputsName.IMAGE)} setValue={setValue} getValues={getValues} />
                 <Button click={handleSubmit(onSubmit)} text={UPDATE_BTN_TEXT} style={ButtonStyle.CTA} type="submit" />
                 <Button click={handleSubmit(onDelete)} text={DELETE_BTN_TEXT} style={ButtonStyle.SIMPLE} type="submit" />

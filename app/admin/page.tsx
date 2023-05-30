@@ -11,12 +11,13 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { AuthorizationData, SectionGalaryTypes, SectionJsonTypes, StocksConfig } from "@/typings";
 import Input, { InputIcons } from "@/components/Input";
 import { ERROR_LOGIN_MESSAGE, ERROR_PASSWORD_MESSAGE, LOGIN_PLACEHOLDER, PASSWORD_PLACEHOLDER, UPDATE_BTN_TEXT } from "@/constants/placeholders";
-import Button from "@/components/Button";
+import Button, { ButtonStyle } from "@/components/Button";
 import { putAuthorization } from "@/lib/putAuthorization";
 import DialogWindow, { DialogWindowType } from "@/components/DialogWindow";
 import { getFilesPaths } from "@/lib/getFilesPaths";
 import { getJSON } from "@/lib/getJSON";
 import FormStocks from "@/components/FormStocks";
+import { ROOT_LINK } from "@/constants/links";
 
 export default function Admin() {
     const [auth, setAuth] = useState<boolean|undefined>(undefined);
@@ -45,15 +46,18 @@ export default function Admin() {
             switch(auth) {
                 case true: {
                     return (
-                        <div className="col-start-1 col-end-7 grid grid-cols-6 h-[90vh] pt-28 max-lg:pt-10 max-lg:overflow-y-auto scrollbar pr-10 h-screen">
+                        <div className="col-start-1 col-end-7 grid grid-cols-6 gap-y-5 h-[90vh] pt-24 max-lg:pt-10 max-lg:overflow-y-auto scrollbar px-10 h-screen">
+                            <div className="col-start-1 col-end-7">
+                                <Button full type="link" href={ROOT_LINK.href} text={ROOT_LINK.text} style={ButtonStyle.CTA} />
+                            </div>
                             <FormJob setDialog={setDialog} />
                             <FormStocks setDialog={setDialog} />
-                            <div className="col-start-5 col-end-7 h-[80vh] overflow-y-auto scrollbar mb-20 px-5 flex flex-col gap-y-10 max-lg:col-start-2 max-lg:col-end-7 max-lg:px-0 max-lg:my-5 max-lg:overflow-visible">
+                            <div className="col-start-5 col-end-7 h-[80vh] overflow-y-auto scrollbar mb-20 px-5 flex flex-col gap-y-10 max-lg:col-start-1 max-lg:col-end-7 max-lg:px-0 max-lg:my-5 max-lg:overflow-visible">
                                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-5">
                                     <h1 className="text-2xl font-extrabold text-center">ДАННЫЕ ДЛЯ ВХОДА</h1>
                                     <Input register={register("login", {required: true})} errors={errors} textHelper={ERROR_LOGIN_MESSAGE} placeholder={LOGIN_PLACEHOLDER} icon={InputIcons.USER} />
                                     <Input register={register("password", {required: true})} errors={errors} textHelper={ERROR_PASSWORD_MESSAGE} placeholder={PASSWORD_PLACEHOLDER} type="password" />
-                                    <Button text={UPDATE_BTN_TEXT} type="submit"/>
+                                    <Button text={UPDATE_BTN_TEXT} type="submit" style={ButtonStyle.CTA}/>
                                 </form>
                                 <FormServices setDialog={setDialog} />
                             </div>

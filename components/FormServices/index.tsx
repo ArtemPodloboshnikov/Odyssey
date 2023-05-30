@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 import Galary from "../Galary";
 import FileLoader from "../FileLoader";
-import Button from "../Button";
+import Button, { ButtonStyle } from "../Button";
 import { UPDATE_BTN_TEXT } from "@/constants/placeholders";
 import { uploadFiles } from "@/lib/uploadFiles";
 import { CategoryImages, SectionGalaryTypes } from "@/typings";
@@ -109,7 +109,7 @@ const FormServices: React.FC<FormServicesProps> = ({setDialog}) => {
                 <Galary paths={data.services} files={galaryServices} deleteImage={deleteImage} slider />
             </div>
             <FileLoader register={registerServices(InputsName.SERVICES)} setValue={setValueServices} getValues={getValuesServices} multiple />
-            <Button text={UPDATE_BTN_TEXT} type="submit" />
+            <Button text={UPDATE_BTN_TEXT} type="submit" style={ButtonStyle.CTA} />
         </form>
         <form onSubmit={handleSubmitMenu(onSubmitMenu)} className="mb-5 w-full h-fit flex flex-col gap-y-5">
             <h1 className="text-2xl font-extrabold text-center">{MENU_LINK.text.toUpperCase()}</h1>
@@ -117,7 +117,7 @@ const FormServices: React.FC<FormServicesProps> = ({setDialog}) => {
                 <Galary paths={data.menu} files={galaryMenu} deleteImage={deleteImage} slider />
             </div>
             <FileLoader register={registerMenu(InputsName.MENU)} setValue={setValueMenu} getValues={getValuesMenu} multiple />
-            <Button text={UPDATE_BTN_TEXT} type="submit" />
+            <Button text={UPDATE_BTN_TEXT} type="submit" style={ButtonStyle.CTA} />
         </form>
         </>
     )

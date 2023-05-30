@@ -51,7 +51,7 @@ export default function FormVacancy({id, title}:{id: string, title: string}) {
         <>
             <div className="col-start-1 col-end-7 relative -mt-[100px]" id={id}></div>
             <div className="col-start-1 col-end-7 mt-10">
-                <h1 className="text-4xl font-extrabold pl-56">{title.toUpperCase()}</h1>
+                <h1 className="text-4xl font-extrabold pl-56 max-lg:pl-5">{title.toUpperCase()}</h1>
                 <Slider>
                     {vacancies !== null ?
                     Object.keys(vacancies).map(profession => {
@@ -86,7 +86,7 @@ export default function FormVacancy({id, title}:{id: string, title: string}) {
             onSubmit={handleSubmit(onSubmit)}
             style={{display: "none"}}
             >
-                <h1 className="relative">{PROFESSION_PLACEHOLDER}</h1>
+                <h1 className="relative font-semibold">{PROFESSION_PLACEHOLDER}</h1>
                 <Input placeholder={USER_NAME_PLACEHOLDER} icon={InputIcons.USER} errors={errors} textHelper={ERROR_FIO_MESSAGE} register={register(InputsName.NAME, {required: true, validate: (value)=>validateName(value)})}/>
                 <Input placeholder={PHONE_PLACEHOLDER} type="tel" errors={errors} textHelper={ERORR_PHONE_MESSAGE} register={register(InputsName.PHONE, {required: true, validate: (value)=>validatePhone(value)})}/>
                 <Input placeholder={RESUME_LINK_PLACEHOLDER} type="url" register={register(InputsName.URL)}/>
@@ -94,7 +94,7 @@ export default function FormVacancy({id, title}:{id: string, title: string}) {
                 <Button text={SEND_BTN_TEXT} type="submit" style={ButtonStyle.CTA}/>
                 <input {...register(InputsName.PROFESSION)} type="hidden" />
                 <div className="relative grid justify-self-center justify-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" onClick={crossClick} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 cursor-pointer max-lg:w-6 max-lg:h-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" onClick={crossClick} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 cursor-pointer max-lg:w-8 max-lg:h-8">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </div>

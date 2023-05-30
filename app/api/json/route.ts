@@ -45,10 +45,12 @@ export async function DELETE(request: Request) {
   const fullPath = getFolderPath(category);
   const fileContents = JSON.parse(await fs.readFile(fullPath, 'utf8'));
   const baseFolder = path.join(process.cwd(), `public`);
-  try {
-    fs.unlink(baseFolder + fileContents[key].imagePath)
-  } catch(e) {
-      console.log(e)
+  if (fileContents[key].imagePath) {
+    try {
+      fs.unlink(baseFolder + fileContents[key].imagePath)
+    } catch (e) {
+      console.error(e);
+    }
   }
   const {[key]: removeProperty, ...newContent} = fileContents;
   await fs.writeFile(fullPath, JSON.stringify(newContent))
