@@ -14,8 +14,6 @@ import { ERROR_LOGIN_MESSAGE, ERROR_PASSWORD_MESSAGE, LOGIN_PLACEHOLDER, PASSWOR
 import Button, { ButtonStyle } from "@/components/Button";
 import { putAuthorization } from "@/lib/putAuthorization";
 import DialogWindow, { DialogWindowType } from "@/components/DialogWindow";
-import { getFilesPaths } from "@/lib/getFilesPaths";
-import { getJSON } from "@/lib/getJSON";
 import FormStocks from "@/components/FormStocks";
 import { ROOT_LINK } from "@/constants/links";
 
@@ -41,7 +39,7 @@ export default function Admin() {
     }, [auth])
 
     return (
-        <>
+        <main className="grid grid-cols-6 h-auto">
         {(()=>{
             switch(auth) {
                 case true: {
@@ -74,6 +72,6 @@ export default function Admin() {
             }
         })()
         }
-        </>
+        </main>
     )
 }

@@ -46,11 +46,7 @@ export default function RootLayout({
         <link rel="icon" href="/images/logo.jpg"/>
       </head>
       <body className="scrollbar">
-        <Header/>
-        <main className="grid grid-cols-6 h-auto">
           {children}
-        </main>
-        <Footer/>
       </body>
     </html>
   )

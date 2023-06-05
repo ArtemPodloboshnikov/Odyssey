@@ -2,16 +2,14 @@
 
 import { PHONE_LINK, VK_LINK } from "@/constants/links";
 import FirstVisit from "../FirstVisit";
-import { usePathname } from 'next/navigation';
 import { Map, Marker, Point, ZoomControl } from "pigeon-maps"
 import Button from "../Button";
 import Image from "next/image";
 
 const Footer: React.FC = () => {
-    const path = usePathname();
     const center: Point = [59.940369046524744, 30.323957474864162];
     return (
-        <footer className={`flex flex-col items-center mt-10 py-5 gap-y-5 ${path === "/admin" ? "hidden" : null}`}>
+        <footer className="flex flex-col items-center mt-10 py-5 gap-y-5">
             <div className="w-full">
             <Map height={300} defaultCenter={center} defaultZoom={18}>
                 <Marker color="var(--red)" anchor={center}><Image src="/images/logo.jpg" alt="" width={30} height={30} className="rounded-full" /></Marker>

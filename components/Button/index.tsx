@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ReactNode } from "react";
 
 export enum ButtonStyle {
@@ -35,13 +34,13 @@ const Button: React.FC<ButtonProps> = ({text, click, href, full, color, style=Bu
     )
     :
     (
-        <Link
+        <a
         className={classStyle}
         href={href||""}
         style={dynamicStyle}
         >
             {text}
-        </Link>
+        </a>
     )
 }
 

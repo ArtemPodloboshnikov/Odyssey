@@ -24,6 +24,8 @@ export const ERROR_SALARY_MESSAGE = "Зарплата сотрудника не 
 export const ERROR_LOGIN_MESSAGE = "Вы не ввели логин";
 export const ERROR_PASSWORD_MESSAGE = "Вы не ввели пароль";
 export const ERROR_TIME_MESSAGE = "Необходимо указать время";
+export const ERROR_TITLE_404 = "Шалуничшка, не туда зашёл";
+export const ERROR_SUBTITLE_404 = "Тебя ждут здесь 👇";
 
 export const BOOK_BTN_TEXT = "Забронировать столик";
 export const CALL_BTN_TEXT = "Узнать по подробнее";
