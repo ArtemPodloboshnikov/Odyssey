@@ -1,5 +1,5 @@
     "use client"
-    import { ChangeEvent, ReactNode, useState } from "react";
+    import React, { ChangeEvent, ReactNode, useState } from "react";
     import { FieldErrors, UseFormRegisterReturn, UseFormSetValue } from "react-hook-form";
     import { ErrorMessage } from '@hookform/error-message';
 
@@ -64,7 +64,7 @@
                 setPasswordIcon(typeIcons["password"])
         }
         return (
-            <div className="relative text-gray-700">
+            <div className="relative text-gray-700 h-fit">
                 <input
                 className="w-full h-10 pl-3 pr-8 text-base text-black font-medium placeholder:placeholder-gray-600 border rounded-lg outline-none"
                 type={isSelect ? "text" : (isPassword && passwordIcon === typeIcons[InputIcons.EYE] ? "text" : type)}
@@ -81,7 +81,7 @@
                     isSelect && setValue !== undefined && showOptions ?
                     <>
                     <div className="hidden max-lg:block max-lg:left-0 max-lg:top-0 max-lg:bg-black max-lg:bg-opacity-50 max-lg:fixed max-lg:w-screen max-lg:h-screen max-lg:z-40" />
-                    <div className="w-full flex flex-col rounded-b-lg absolute bg-white z-50 max-lg:p-3 max-lg:fixed max-lg:w-9/12 max-lg:h-fit max-lg:top-[50%] max-lg:left-[50%] max-lg:translate-x-[-50%] max-lg:translate-y-[-50%] max-lg:rounded-lg max-lg:text-center max-lg:text-2xl">
+                    <div className="w-full min-h-fit max-h-96 overflow-y-auto scrollbar flex flex-col rounded-b-lg absolute bg-white z-50 max-lg:p-3 max-lg:fixed max-lg:w-9/12 max-lg:h-40 max-lg:top-[50%] max-lg:left-[50%] max-lg:translate-x-[-50%] max-lg:translate-y-[-50%] max-lg:rounded-lg max-lg:text-center max-lg:text-2xl">
                         {options.map(option => {
                             const changeOption = () => {
                                 setValue(register.name, option);
@@ -125,4 +125,4 @@
         )
     }
 
-    export default Input;
+    export default React.memo(Input);
