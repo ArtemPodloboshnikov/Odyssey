@@ -16,7 +16,7 @@ export default function Home() {
     <Suspense fallback={<Loading/>}>
       <Header/>
       <main className="grid grid-cols-6 h-auto">
-      <div className="col-start-1 col-end-7 h-screen overflow-hidden before:content-[''] before:z-20 before:bg-black before:left-0 before:top-0 before:absolute before:w-screen before:min-h-screen before:bg-opacity-70">
+      <div className="col-start-1 col-end-7 h-screen overflow-hidden before:content-[''] before:z-20 before:bg-black before:left-0 before:top-0 before:absolute before:w-screen before:min-h-screen before:bg-opacity-75">
         <h1 className="absolute z-20 mt-[30%] ml-[50%] translate-x-[-50%] translate-y-[-50%] text-5xl w-[900px] leading-relaxed text-center neon_text max-lg:text-2xl max-lg:w-[390px] max-lg:mt-[90%] max-lg:px-5">Почувствовать себя в качестве героя собственного приключения в «Odyssey»</h1>
         <video autoPlay loop muted playsInline className="relative top-0 left-0 min-w-full min-h-full w-auto h-auto max-w-none max-lg:hidden">
               <source src="/video/striptease_dance.mp4" type="video/mp4"/>
