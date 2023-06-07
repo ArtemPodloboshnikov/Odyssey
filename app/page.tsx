@@ -21,9 +21,7 @@ export default function Home() {
         <video autoPlay loop muted playsInline className="relative top-0 left-0 min-w-full min-h-full w-auto h-auto max-w-none max-lg:hidden">
               <source src={`/video/striptease_dance.mp4`} type="video/mp4"/>
         </video>
-        <video autoPlay loop muted playsInline className="hidden relative top-0 left-[-150px] min-w-full min-h-full w-auto h-auto max-w-none max-lg:block">
-              <source src={`/video/ass.mp4`} type="video/mp4"/>
-        </video>
+        <div className="relative left-0 top-0 w-full h-full bg-no-repeat bg-cover bg-center max-lg:block" style={{backgroundImage: "url('/images/cover.jpg')"}} />
       </div>
       <Stocks/>
       <SectionGalary
